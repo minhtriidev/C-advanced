@@ -1,7 +1,7 @@
-# 1 "bt2_ifndefine.c"
+# 1 "main.c"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "bt2_ifndefine.c"
+# 1 "main.c"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -437,7 +437,7 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 2 "bt2_ifndefine.c" 2
+# 2 "main.c" 2
 # 1 "math_utils.h" 1
 
 
@@ -450,7 +450,7 @@ int add(int a, int b);
 int sub(int a, int b);
 int mul(int a, int b);
 float div(float a, float b);
-# 3 "bt2_ifndefine.c" 2
+# 3 "main.c" 2
 
 
 int add(int a, int b) {

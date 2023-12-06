@@ -1,4 +1,4 @@
-	.file	"bt1_macro.c"
+	.file	"main.c"
 	.section .rdata,"dr"
 LC0:
 	.ascii "Error: %s\12\0"
@@ -184,7 +184,7 @@ LFB16:
 	andl	$-16, %esp
 	subl	$32, %esp
 	call	___main
-	movl	$3, 28(%esp)
+	movl	$5, 28(%esp)
 	cmpl	$10, 28(%esp)
 	jne	L8
 	movl	$LC6, (%esp)
@@ -210,18 +210,19 @@ L10:
 	call	_printDebug
 L11:
 	cmpl	$2, 28(%esp)
-	jg	L12
+	jle	L12
 	cmpl	$7, 28(%esp)
-	jg	L13
-L12:
+	jg	L12
+	cmpl	$5, 28(%esp)
+	je	L12
 	movl	$LC10, (%esp)
 	call	_printCritical
-L13:
+L12:
 	cmpl	$5, 28(%esp)
-	jne	L14
+	jne	L13
 	movl	$LC11, (%esp)
 	call	_printSuccess
-L14:
+L13:
 	movl	$0, %eax
 	leave
 	.cfi_restore 5

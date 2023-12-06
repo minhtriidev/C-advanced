@@ -1,4 +1,4 @@
-	.file	"bt2_ifndefine.c"
+	.file	"main.c"
 	.text
 	.globl	_add
 	.def	_add;	.scl	2;	.type	32;	.endef

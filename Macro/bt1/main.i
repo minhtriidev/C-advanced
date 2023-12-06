@@ -1,7 +1,7 @@
-# 1 "bt1_macro.c"
+# 1 "main.c"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "bt1_macro.c"
+# 1 "main.c"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -437,11 +437,11 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 2 "bt1_macro.c" 2
+# 2 "main.c" 2
 
 
 
-# 4 "bt1_macro.c"
+# 4 "main.c"
 void printError(const char *message) {
    printf("Error: %s\n", message);
 }
@@ -472,16 +472,16 @@ void printCritical(const char *message) {
 void printSuccess(const char *message) {
    printf("Success: %s\n", message);
 }
-# 44 "bt1_macro.c"
+# 44 "main.c"
 int main() {
-   int x = 3;
+   int x = 5;
 
 
    do { if (x == 10) { printError("x is not equal to 10"); } } while(0);
    do { if (x < 10 && x > 7) { printWarning("x is less than 10"); } } while(0);
    do { if (x == 0) { printInfo("x is not equal to 0"); } } while(0);
    do { if (x > 0 && x <3) { printDebug("x is more than 0"); } } while(0);
-   do { if (x >= 3 || x <= 7) { printCritical("x is less than 7 and more than 3"); } } while(0);
+   do { if (x >= 3 && x <= 7 && x != 5) { printCritical("x is less than 7 and more than 3"); } } while(0);
    do { if (x == 5) { printSuccess("x is equal to 5"); } } while(0);
 
    return 0;
