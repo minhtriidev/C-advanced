@@ -4,7 +4,7 @@ Trần Minh Trí
 
 Lịch học: thứ 3, 5, 7; 8:9 pm
 
-## **MỤC LỤC**
+# **MỤC LỤC**
 
 [**LESSON 1: MACRO**](#Lesson1)
 
@@ -14,11 +14,11 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 <a name="Lesson1"></a>
 
-## **LESSON 1: MACRO**
+# **LESSON 1: MACRO**
 
 # **Quá trình biên dịch một chương trình C/C++**
 
-**1. Định nghĩa**
+## **1. Định nghĩa**
 
 Quy trình dịch là quá trình chuyển đổi từ ngôn ngữ bậc cao (NNBC) (C/C++, Pascal, Java, C#…) sang ngôn ngữ đích (ngôn ngữ máy) để máy tính có thể hiểu và thực thi. Ngôn ngữ lập trình C là một ngôn ngữ dạng biên dịch. Chương trình được viết bằng C muốn chạy được trên máy tính phải trải qua một quá trình biên dịch để chuyển đổi từ dạng mã nguồn sang chương trình dạng mã thực thi. Quá trình được chia ra làm 4 giai đoạn chính:
 
@@ -29,7 +29,7 @@ Quy trình dịch là quá trình chuyển đổi từ ngôn ngữ bậc cao (NN
 
 <img src="https://i.imgur.com/hrmqZ8q.png">
 
-**2. Hoạt động**
+## **2. Hoạt động**
 
 **a. Giai đoạn tiền xử lý – Preprocessor**
 
@@ -105,9 +105,9 @@ Việc sử dụng các chỉ thị này giúp tránh các vấn đề như:
 
 <a name="Lesson2"></a>
 
-## **LESSON 2: STDARG AND ASSSERT**
+# **LESSON 2: STDARG AND ASSSERT**
 
-# **Thư viện stdarg**
+## **Thư viện stdarg**
 
 - Cung cấp các phương thức để làm việc với các hàm có số lượng input parameter không cố định.
 
@@ -294,8 +294,7 @@ int main() {
 
 ```
 
-# **Thư viện assert**
-
+## **Thư viện assert**
 
 <a name="Lesson3"></a>
 
