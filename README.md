@@ -107,7 +107,7 @@ Việc sử dụng các chỉ thị này giúp tránh các vấn đề như:
 
 # **LESSON 2: STDARG AND ASSSERT**
 
-## **Thư viện stdarg**
+## 1. **Thư viện stdarg**
 
 - Cung cấp các phương thức để làm việc với các hàm có số lượng input parameter không cố định.
 
@@ -294,8 +294,42 @@ int main() {
 
 ```
 
-## **Thư viện assert**
+## 2. **Thư viện assert**
+
+- Cung cấp macro assert. 
+- Macro này được sử dụng để kiểm tra một điều kiện. 
+- Nếu điều kiện đúng (true), không có gì xảy ra và chương trình tiếp tục thực thi.
+- Nếu điều kiện sai (false), chương trình dừng lại và thông báo một thông điệp lỗi.
+- Dùng trong debug, dùng #define NDEBUG để tắt debug
+
+**vd1:**
+
+```c
+#include <assert.h>
+
+#define ASSERT_IN_RANGE(val, min, max) assert((val) >= (min) && (val) <= (max))
+
+void setLevel(int level) {
+    ASSERT_IN_RANGE(level, 1, 10);
+    // Thiết lập cấp độ
+}
+```
+
+**vd2:**
+
+```c
+#include <assert.h>
+#include <stdint.h>
+
+#define ASSERT_SIZE(type, size) assert(sizeof(type) == (size))
+
+void checkTypeSizes() {
+    ASSERT_SIZE(uint32_t, 4);
+    ASSERT_SIZE(uint16_t, 2);
+    // Kiểm tra các kích thước kiểu dữ liệu khác
+}
+```
 
 <a name="Lesson3"></a>
 
-## **LESSON 3: POINTER**
+# **LESSON 3: POINTER**
