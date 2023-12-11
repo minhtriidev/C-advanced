@@ -1,4 +1,4 @@
-**Bài Tập: Hệ Thống Điều Khiển Thiết Bị IoT**
+# **Bài Tập: Hệ Thống Điều Khiển Thiết Bị IoT**
 
 **Mô Tả**
 
@@ -14,6 +14,8 @@ Bạn được yêu cầu viết một chương trình mô phỏng hệ thống 
 
 
 Input: Chương trình nhận input dưới dạng các lệnh từ người dùng. Mỗi lệnh bao gồm loại thiết bị và hành động cần thực hiện, cùng với các tham số cần thiết.
+
+
 Output: Chương trình sẽ in ra thông báo chi tiết về hành động được thực hiện cho mỗi lệnh.
 
 
