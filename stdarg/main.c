@@ -40,15 +40,15 @@ void controlDevice(DeviceType device, ...) {
             CommandType cmd = va_arg(args, CommandType);
             switch (cmd)
             {
-            case ON:
-                printf("Light turned ON\n");
-                break;
-            case OFF:
-                printf("Light turned OFF\n");
-                break;
-            default:
-                printf("Command not found for the Light\n");
-                break;
+                case ON:
+                    printf("Light turned ON\n");
+                    break;
+                case OFF:
+                    printf("Light turned OFF\n");
+                    break;
+                default:
+                    printf("Command not found for the Light\n");
+                    break;
             }
         }
         break;
@@ -58,36 +58,36 @@ void controlDevice(DeviceType device, ...) {
             CommandType cmd = va_arg(args, CommandType);
             switch (cmd)
             {
-            case ON:
-                printf("Air Conditioner turned ON\n");
-                break;
-            case OFF:
-                printf("Air Conditioner turned OFF\n");
-                break;
-            case SET_TEMPERATURE: {
-                int temp = va_arg(args, int);
-                printf("Air Conditioner temperature set to %d degrees\n", temp);
-            }
-            break;
-            case SET_MODE: {
-                int mode = va_arg(args, int);
-                switch (mode)
-                {
-                case MODE_COOLER:
-                    printf("Air Conditioner set to cooler mode \n");
+                case ON:
+                    printf("Air Conditioner turned ON\n");
                     break;
-                case MODE_FAN:
-                    printf("Air Conditioner set to fan mode \n");
+                case OFF:
+                    printf("Air Conditioner turned OFF\n");
                     break;
-                default:
-                    printf("Command not found for mode of the Air Conditioner\n");
-                    break;
+                case SET_TEMPERATURE: {
+                    int temp = va_arg(args, int);
+                    printf("Air Conditioner temperature set to %d degrees\n", temp);
                 }
-            break;
-            }
-            default:
-            printf("Command not found for Air Conditioner\n");
-            break;
+                break;
+                case SET_MODE: {
+                    int mode = va_arg(args, int);
+                    switch (mode)
+                    {
+                    case MODE_COOLER:
+                        printf("Air Conditioner set to cooler mode \n");
+                        break;
+                    case MODE_FAN:
+                        printf("Air Conditioner set to fan mode \n");
+                        break;
+                    default:
+                        printf("Command not found for mode of the Air Conditioner\n");
+                        break;
+                    }
+                break;
+                }
+                default:
+                printf("Command not found for Air Conditioner\n");
+                break;
             }
         }
         break;
@@ -97,15 +97,15 @@ void controlDevice(DeviceType device, ...) {
             CommandType cmd = va_arg(args, CommandType);
             switch (cmd)
             {
-            case ON:
-                printf("Fringerprint Lock is Loked\n");
-                break;
-            case OFF:
-                printf("Fringerprint Lock is Unlocked\n");
-                break;
-            default:
-                printf("Command not found for the Fingerprint Lock\n");
-                break;
+                case ON:
+                    printf("Fringerprint Lock is Loked\n");
+                    break;
+                case OFF:
+                    printf("Fringerprint Lock is Unlocked\n");
+                    break;
+                default:
+                    printf("Command not found for the Fingerprint Lock\n");
+                    break;
             }
             break;
         }
@@ -116,23 +116,23 @@ void controlDevice(DeviceType device, ...) {
             CommandType cmd = va_arg(args, CommandType);
             switch (cmd)
             {
-            case ON:
-                printf("Music Player turned ON\n");
-                break;
-            case OFF:
-                printf("Music Player turned OFF\n");
-                break;
-            case SET_VOLUME: {
-                int volume = va_arg(args, int);
-                printf("The volume set to %d\n", volume);
-                break;
-            }
-            case CHANGE_TRACK:
-                printf("Music Player changed track\n");
-                break;
-            default:
-                printf("Command not found for Music Player\n");
-                break;
+                case ON:
+                    printf("Music Player turned ON\n");
+                    break;
+                case OFF:
+                    printf("Music Player turned OFF\n");
+                    break;
+                case SET_VOLUME: {
+                    int volume = va_arg(args, int);
+                    printf("The volume set to %d\n", volume);
+                    break;
+                }
+                case CHANGE_TRACK:
+                    printf("Music Player changed track\n");
+                    break;
+                default:
+                    printf("Command not found for Music Player\n");
+                    break;
             }
             break;
         }
