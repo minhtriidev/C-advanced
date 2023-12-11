@@ -27,7 +27,7 @@ Quy trình dịch là quá trình chuyển đổi từ ngôn ngữ bậc cao (NN
 - Giai đoạn dịch asembly sang ngôn ngữ máy (Asember)
 - Giai đoạn liên kết (Linker)
 
-<img src="https://imgur.com/hrmqZ8q">
+<img src="https://i.imgur.com/hrmqZ8q.png">
 
 **2. Hoạt động**
 
