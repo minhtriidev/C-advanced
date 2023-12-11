@@ -16,7 +16,48 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 ## **LESSON 1: MACRO**
 
-**Các bước xử lý code của trình biên dịch**
+# **Quá trình biên dịch một chương trình C/C++**
+
+**1. Định nghĩa**
+
+Quy trình dịch là quá trình chuyển đổi từ ngôn ngữ bậc cao (NNBC) (C/C++, Pascal, Java, C#…) sang ngôn ngữ đích (ngôn ngữ máy) để máy tính có thể hiểu và thực thi. Ngôn ngữ lập trình C là một ngôn ngữ dạng biên dịch. Chương trình được viết bằng C muốn chạy được trên máy tính phải trải qua một quá trình biên dịch để chuyển đổi từ dạng mã nguồn sang chương trình dạng mã thực thi. Quá trình được chia ra làm 4 giai đoạn chính:
+
+- Giai đoàn tiền xử lý (Pre-processor)
+- Giai đoạn dịch NNBC sang Asembly (Compiler)
+- Giai đoạn dịch asembly sang ngôn ngữ máy (Asember)
+- Giai đoạn liên kết (Linker)
+
+<img src="https://imgur.com/hrmqZ8q">
+
+**2. Hoạt động**
+
+**a. Giai đoạn tiền xử lý – Preprocessor**
+
+Giai đoạn này sẽ thực hiện:
+
+- Nhận mã nguồn
+- Xóa bỏ tất cả chú thích, comments của chương trình
+- Chỉ thị tiền xử lý (bắt đầu bằng #) cũng được xử lý
+- Ví dụ: chỉ thị #include cho phép ghép thêm mã chương trình của một tệp tiêu để vào mã nguồn cần dịch. Các hằng số được định nghĩa bằng #define sẽ được thay thế bằng giá trị cụ thể tại mỗi nơi sử dụng trong chương trình.
+
+**b. Cộng đoạn dịch Ngôn Ngữ Bậc Cao sang Assembly**
+
+- Phân tích cú pháp (syntax) của mã nguồn NNBC
+- Chuyển chúng sang dạng mã Assembly là một ngôn ngữ bậc thấp (hợp ngữ) gần với tập lệnh của bộ vi xử lý.
+
+**c. Công đoạn dịch Assembly**
+
+- Dịch chương trình => Sang mã máy 0 và 1
+- Một tệp mã máy (.obj) sinh ra trong hệ thống sau đó.
+
+**d. Giai đoạn Linker**
+
+- Trong giai đoạn này mã máy của một chương trình dịch từ nhiều nguồn (file .c hoặc file thư viện .lib) được liên kết lại với nhau để tạo thành chương trình đích duy nhất
+- Mã máy của các hàm thư viện gọi trong chương trình cũng được đưa vào chương trình cuối trong giai đoạn này.
+- Chính vì vậy mà các lỗi liên quan đến việc gọi hàm hay sử dụng biến tổng thể mà không tồn tại sẽ bị phát hiện. Kể cả lỗi viết chương trình chính không có hàm main() cũng được phát hiện trong liên kết.
+
+**Kết thúc quá trình tất cả các đối tượng được liên kết lại với nhau thành một chương trình có thể thực thi được (executable hay .exe) thống nhất.**
+
 
 ```C
 Preprocessor
@@ -66,7 +107,7 @@ Việc sử dụng các chỉ thị này giúp tránh các vấn đề như:
 
 ## **LESSON 2: STDARG AND ASSSERT**
 
-**Thư viện stdarg**
+# **Thư viện stdarg**
 
 - Cung cấp các phương thức để làm việc với các hàm có số lượng input parameter không cố định.
 
@@ -253,7 +294,7 @@ int main() {
 
 ```
 
-**Thư viện assert**
+# **Thư viện assert**
 
 
 <a name="Lesson3"></a>
