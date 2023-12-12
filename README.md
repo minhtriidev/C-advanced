@@ -354,7 +354,7 @@ Cú pháp: `extern <kiểu dữ liệu> <Tên Biến>;`
 
 Lưu ý: khi sử dụng extern, không được khai báo giá trị ban đầu cho biến
 
-**vd: ở file1.c ta có biến toàn cục GlobalVariable**
+**vd1: ở file1.c ta có biến toàn cục GlobalVariable**
 ```c
 int GlobalVariable = 0; // implicit definition 
 void SomeFunction(); // function prototype (declaration) 
@@ -378,3 +378,200 @@ int main()
 }
 ```
 
+**vd2: main.c dùng hàm HelloWorl được extern từ test1.c**
+
+thay vì dùng #include như bình thường ta dùng extern để xác định hàm cần sử dụng từ file khác
+
+```c
+//test1.c
+#include <stdio.h>
+
+void HelloWorld()
+{
+    printf("Hello World!");
+}
+```
+
+```c
+//main.c
+#include <stdio.h>
+// #include "test1.h" // đã comment dòng này
+
+extern void HelloWorld();
+
+int main()
+{
+    HelloWorld();
+    return 0;
+}
+```
+## 2. **STATIS**
+
+### **STATIS LOCAL VARIABLES**
+
+- Khi static được sử dụng với local variables (biến cục bộ - khai báo biến trong một hàm), nó giữ giá trị của biến qua các lần gọi hàm và giữ phạm vi của biến chỉ trong hàm đó.
+
+**vd:**
+
+```c
+#include <stdio.h>
+
+void exampleFunction() {
+    static int count = 0;  // Biến static giữ giá trị qua các lần gọi hàm
+    count++;
+    printf("Count: %d\n", count);
+    }
+    
+int main() {
+    exampleFunction();  // In ra "Count: 1"
+    exampleFunction();  // In ra "Count: 2"
+    exampleFunction();  // In ra "Count: 3"
+    return 0;}
+```
+
+### **STATIS GLOBAL VARIABLES**
+
+- Khi static được sử dụng với global variables ( biến toàn cục - khai báo biến bên ngoài hàm), nó hạn chế phạm vi của biến đó chỉ trong file nguồn hiện tại.
+
+**vd: Trong hàm main.c, sẽ không sử dụng được các hàm startMotor, stopMotor, stop trực tiếp mà phải truy cập chúng thông qua init_motor**
+
+```c
+//main.c
+#include <stdio.h>
+#include "motor.h"
+
+int main() {
+    // Khởi tạo một đối tượng MotorController
+    MotorController myMotor;
+    
+    // Gọi hàm init_motor để khởi tạo myMotor
+    init_motor(&myMotor);
+    
+    // Sử dụng các hàm từ myMotor
+    PIN motorPin = 10; // Thay đổi giá trị PIN theo nhu cầu
+    
+    myMotor.start(motorPin);
+    myMotor.changeSpeed(motorPin, 50);
+    myMotor.stop(motorPin);
+
+    return 0;
+}
+```
+
+```c
+//motor.h
+#ifndef __MOTOR_H
+#define __MOTOR_H
+
+typedef struct {
+    void (*start)(int gpio);
+    void (*stop)(int gpio);
+    void (*changeSpeed)(int gpio, int speed);
+} MotorController;
+
+typedef int PIN;
+
+static void startMotor(PIN pin);
+static void stopMotor(PIN pin);
+static void changeSpeedMotor(PIN pin, int speed);
+
+	 
+void init_motor(MotorController *motorName); 
+
+
+#endif
+```
+
+```c
+//motor.c
+#include <stdio.h>
+#include "motor.h"
+
+
+// General function
+void startMotor(PIN pin) {
+   printf("Start motor at PIN %d\n", pin);
+}
+
+void stopMotor(PIN pin) {
+   printf("Stop motor at PIN %d\n", pin);
+}
+
+void changeSpeedMotor(PIN pin, int speed) {
+   printf("Change speed at PIN %d: %d\n", pin, speed);
+}
+
+	 
+void init_motor(MotorController *motorName)
+{
+	motorName->start = startMotor;
+	motorName->stop = stopMotor;
+	motorName->changeSpeed = changeSpeedMotor;
+}
+```
+
+## 3. **VOLATILE**
+
+- Từ khóa volatile trong ngôn ngữ lập trình C được sử dụng để báo hiệu cho trình biên dịch rằng một biến có thể thay đổi ngẫu nhiên, ngoài sự kiểm soát của chương trình. Việc này ngăn chặn trình biên dịch tối ưu hóa hoặc xóa bỏ các thao tác trên biến đó, giữ cho các thao tác trên biến được thực hiện như đã được định nghĩa.
+
+- Việc sử dụng volatile đặc biệt có ý nghĩa trong trường hợp biến khai báo được sử dụng để cập nhật giá trị từ bên ngoài như đọc giá trị cảm biến, khi đó chúng ta cần cập nhật giá trị của biến một cách liên tục.
+
+
+**vd: Biến i sau khi khai báo volatile sẽ không bị trình biên dịch tối ưu hóa, nó sẽ vẫn cập nhật giá trị liên tục trong vòng lặp while**
+```c
+#include "stm32f10x.h"
+
+volatile int i = 0;
+int a = 100;
+
+int main()
+{
+	
+	while(1)
+	{
+		i = *((int*) 0x20000000);
+		if (i > 0)
+		{
+			break;
+		}
+		
+	}
+	a = 200;
+}
+```
+
+## 4. **REGISTER**
+
+- Trong ngôn ngữ lập trình C, từ khóa register được sử dụng để chỉ ra ý muốn của lập trình viên rằng một biến được sử dụng thường xuyên và có thể được lưu trữ trong một thanh ghi máy tính, chứ không phải trong bộ nhớ RAM. 
+
+- Việc này nhằm tăng tốc độ truy cập. Tuy nhiên, lưu ý rằng việc sử dụng register chỉ là một đề xuất cho trình biên dịch và không đảm bảo rằng biến sẽ được lưu trữ trong thanh ghi. Trong thực tế, trình biên dịch có thể quyết định không tuân thủ lời đề xuất này.
+
+<img src="https://i.imgur.com/o2kYLC2.png">
+
+**vd: khi có từ khóa 'register int i' thì kết quả là 'Thoi gian chay cua chuong trinh: 0.001000 giay' còn khi không có thì kết quả là 'Thoi gian chay cua chuong trinh: 0.003000 giay'**
+
+```c
+#include <stdio.h>
+#include <time.h>
+
+int main() {
+    // Lưu thời điểm bắt đầu
+    clock_t start_time = clock();
+    register int i;
+
+    // Đoạn mã của chương trình
+    for (i = 0; i < 2000000; ++i) {
+        // Thực hiện một số công việc bất kỳ
+    }
+
+    // Lưu thời điểm kết thúc
+    clock_t end_time = clock();
+
+    // Tính thời gian chạy bằng miligiây
+    double time_taken = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+
+    printf("Thoi gian chay cua chuong trinh: %f giay\n", time_taken);
+
+    return 0;
+}
+```
