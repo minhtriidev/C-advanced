@@ -12,6 +12,8 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 [**LESSON 3: POINTER**](#Lesson3)
 
+[**LESSON 4: EXTERN - STATIS - VOLATILE - REGISTER**](#Lesson4)
+
 <a name="Lesson1"></a>
 
 # **LESSON 1: MACRO**
@@ -333,3 +335,46 @@ void checkTypeSizes() {
 <a name="Lesson3"></a>
 
 # **LESSON 3: POINTER**
+
+<a name="Lesson4"></a>
+
+# **LESSON 4: EXTERN - STATIS - VOLATILE - REGISTER**
+
+## 1. **EXTERN**
+
+- Khái niệm Extern trong ngôn ngữ lập trình C được sử dụng để thông báo rằng một biến hoặc hàm đã được khai báo ở một nơi khác trong chương trình hoặc trong một file nguồn khác. 
+
+- Điều này giúp chương trình hiểu rằng biến hoặc hàm đã được định nghĩa và sẽ được sử dụng từ một vị trí khác, giúp quản lý sự liên kết giữa các phần khác nhau của chương trình hoặc giữa các file nguồn.
+
+- Biến được tham chiếu phải được khai báo ở cấp độ cao nhất (toàn cục).
+
+- Để sử dụng được biến toàn cục ở một file khác, chúng ta phải khai báo lại biến và thêm từ khóa extern phía trước, để báo rằng biến này đã được khi báo ở file khác.
+
+Cú pháp: `extern <kiểu dữ liệu> <Tên Biến>;`
+
+Lưu ý: khi sử dụng extern, không được khai báo giá trị ban đầu cho biến
+
+**vd: ở file1.c ta có biến toàn cục GlobalVariable**
+```c
+int GlobalVariable = 0; // implicit definition 
+void SomeFunction(); // function prototype (declaration) 
+int main() 
+{ 
+  GlobalVariable = 1; 
+  SomeFunction(); 
+  return 0; 
+}
+```
+
+**ở main.c ta cần dùng biến GlobalVariable này từ file1.c**
+```c
+extern int GlobalVariable; // implicit definition 
+void SomeFunction(); // function prototype (declaration) 
+int main() 
+{ 
+  GlobalVariable = 1; 
+  SomeFunction(); 
+  return 0; 
+}
+```
+
