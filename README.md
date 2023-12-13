@@ -6,15 +6,33 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 ---
 
-# **MỤC LỤC**
+## **MỤC LỤC**
 
 [**LESSON 1: MACRO**](#Lesson1)
 
+- [**I. Quá trình biên dịch một chương trình C/C++**](#Quá-trình-biên-dịch-một-chương-trình-C)
+    - [**1.Định nghĩa**](#1-định-nghĩa)
+    - [**2. Hoạt động**](#2-hoạt-động)
+        - [**a. Giai đoạn tiền xử lý – Preprocessor** ](#a-giai-đoạn-tiền-xử-lý-–-preprocessor)
+        - [**b. Công đoạn dịch Ngôn Ngữ Bậc Cao sang Assembly**](#b-công-đoạn-dịch-ngôn-ngữ-bậc-cao-sang-assembly)
+        - [**c. Công đoạn dịch Assembly**](#c-công-đoạn-dịch-assembly)
+        - [**d. Giai đoạn Linker**](#d-giai-đoạn-linker)
+
 [**LESSON 2: STDARG AND ASSSERT**](#Lesson2)
+
+- [**I. Thư viện stdarg**](#i-thư-viện-stdarg)
+- [**II. Thư viện assert**](#ii-thư-viện-assert)
 
 [**LESSON 3: POINTER**](#Lesson3)
 
 [**LESSON 4: EXTERN - STATIS - VOLATILE - REGISTER**](#Lesson4)
+
+- [**I. EXTERN**](#extern)
+- [**II. STATIS**](#statis)
+    - [**1. STATIS LOCAL VARIABLES**](#1-statis-local-variables)
+    - [**2. STATIS GLOBAL VARIABLES**](#2-statis-global-variables)
+- [**III. VOLATILE**](#volatile)
+- [**IV. REGISTER**](#register)
 
 ---
 
@@ -22,9 +40,11 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 # **LESSON 1: MACRO**
 
-# **Quá trình biên dịch một chương trình C/C++**
+<a name="Quá-trình-biên-dịch-một-chương-trình-C"></a>
+## I. **Quá trình biên dịch một chương trình C/C++**
 
-## **1. Định nghĩa**
+<a name="1-định-nghĩa"></a>
+### **1. Định nghĩa**
 
 Quy trình dịch là quá trình chuyển đổi từ ngôn ngữ bậc cao (NNBC) (C/C++, Pascal, Java, C#…) sang ngôn ngữ đích (ngôn ngữ máy) để máy tính có thể hiểu và thực thi. Ngôn ngữ lập trình C là một ngôn ngữ dạng biên dịch. Chương trình được viết bằng C muốn chạy được trên máy tính phải trải qua một quá trình biên dịch để chuyển đổi từ dạng mã nguồn sang chương trình dạng mã thực thi. Quá trình được chia ra làm 4 giai đoạn chính:
 
@@ -35,9 +55,11 @@ Quy trình dịch là quá trình chuyển đổi từ ngôn ngữ bậc cao (NN
 
 <img src="https://i.imgur.com/hrmqZ8q.png">
 
-## **2. Hoạt động**
+<a name="2-hoạt-động"></a>
+### **2. Hoạt động**
 
-**a. Giai đoạn tiền xử lý – Preprocessor**
+<a name="a-giai-đoạn-tiền-xử-lý-–-preprocessor"></a>
+#### **a. Giai đoạn tiền xử lý – Preprocessor**
 
 Giai đoạn này sẽ thực hiện:
 
@@ -46,17 +68,23 @@ Giai đoạn này sẽ thực hiện:
 - Chỉ thị tiền xử lý (bắt đầu bằng #) cũng được xử lý
 - Ví dụ: chỉ thị #include cho phép ghép thêm mã chương trình của một tệp tiêu để vào mã nguồn cần dịch. Các hằng số được định nghĩa bằng #define sẽ được thay thế bằng giá trị cụ thể tại mỗi nơi sử dụng trong chương trình.
 
-**b. Cộng đoạn dịch Ngôn Ngữ Bậc Cao sang Assembly**
+<a name="#b-công-đoạn-dịch-ngôn-ngữ-bậc-cao-sang-assembly"></a>
+
+#### **b. Công đoạn dịch Ngôn Ngữ Bậc Cao sang Assembly**
 
 - Phân tích cú pháp (syntax) của mã nguồn NNBC
 - Chuyển chúng sang dạng mã Assembly là một ngôn ngữ bậc thấp (hợp ngữ) gần với tập lệnh của bộ vi xử lý.
 
-**c. Công đoạn dịch Assembly**
+<a name="#c-công-đoạn-dịch-assembly"></a>
+
+#### **c. Công đoạn dịch Assembly**
 
 - Dịch chương trình => Sang mã máy 0 và 1
 - Một tệp mã máy (.obj) sinh ra trong hệ thống sau đó.
 
-**d. Giai đoạn Linker**
+<a name="#d-giai-đoạn-linker"></a>
+
+#### **d. Giai đoạn Linker**
 
 - Trong giai đoạn này mã máy của một chương trình dịch từ nhiều nguồn (file .c hoặc file thư viện .lib) được liên kết lại với nhau để tạo thành chương trình đích duy nhất
 - Mã máy của các hàm thư viện gọi trong chương trình cũng được đưa vào chương trình cuối trong giai đoạn này.
@@ -82,11 +110,11 @@ Linker
 gcc main.o -o main
 ```
 
+<a name="#ifndef, #define, và #endif"></a>
+## II. **#ifndef, #define, và #endif**
 
-**#ifndef, #define, và #endif**
 
-
-Là các chỉ thị tiền xử lý (preprocessor directives) trong ngôn ngữ lập trình C và C++. Chúng được sử dụng để tạo ra các biểu thức điều kiện để ngăn chặn sự bao gồm (include) một tệp (file) tiêu đề (header file) nhiều lần trong cùng một đơn vị biên dịch (translation unit), nhằm tránh những vấn đề như định nghĩa nhiều lần hoặc xung đột.
+- Là các chỉ thị tiền xử lý (preprocessor directives) trong ngôn ngữ lập trình C và C++. Chúng được sử dụng để tạo ra các biểu thức điều kiện để ngăn chặn sự bao gồm (include) một tệp (file) tiêu đề (header file) nhiều lần trong cùng một đơn vị biên dịch (translation unit), nhằm tránh những vấn đề như định nghĩa nhiều lần hoặc xung đột.
 
 
 - Dưới đây là cách chúng hoạt động:
@@ -115,7 +143,9 @@ Việc sử dụng các chỉ thị này giúp tránh các vấn đề như:
 
 # **LESSON 2: STDARG AND ASSSERT**
 
-## 1. **Thư viện stdarg**
+<a name="#i-thư-viện-stdarg"></a>
+
+## **I. Thư viện stdarg**
 
 - Cung cấp các phương thức để làm việc với các hàm có số lượng input parameter không cố định.
 
@@ -301,8 +331,9 @@ int main() {
 
 
 ```
+<a name="ii-thư-viện-assert"></a>
 
-## 2. **Thư viện assert**
+## **II. Thư viện assert**
 
 - Cung cấp macro assert. 
 - Macro này được sử dụng để kiểm tra một điều kiện. 
@@ -350,7 +381,9 @@ void checkTypeSizes() {
 
 # **LESSON 4: EXTERN - STATIS - VOLATILE - REGISTER**
 
-## 1. **EXTERN**
+<a name="extern"></a>
+
+## **I. EXTERN**
 
 - Khái niệm Extern trong ngôn ngữ lập trình C được sử dụng để thông báo rằng một biến hoặc hàm đã được khai báo ở một nơi khác trong chương trình hoặc trong một file nguồn khác. 
 
@@ -415,9 +448,14 @@ int main()
     return 0;
 }
 ```
-## 2. **STATIS**
 
-### **STATIS LOCAL VARIABLES**
+<a name="statis"></a>
+
+## **II. STATIS**
+
+<a name="1-statis-local-variables"></a>
+
+### **1. STATIS LOCAL VARIABLES**
 
 - Khi static được sử dụng với local variables (biến cục bộ - khai báo biến trong một hàm), nó giữ giá trị của biến qua các lần gọi hàm và giữ phạm vi của biến chỉ trong hàm đó.
 
@@ -438,8 +476,9 @@ int main() {
     exampleFunction();  // In ra "Count: 3"
     return 0;}
 ```
+<a name="2-statis-global-variables"></a>
 
-### **STATIS GLOBAL VARIABLES**
+### **2. STATIS GLOBAL VARIABLES**
 
 - Khi static được sử dụng với global variables ( biến toàn cục - khai báo biến bên ngoài hàm), nó hạn chế phạm vi của biến đó chỉ trong file nguồn hiện tại.
 
@@ -519,8 +558,9 @@ void init_motor(MotorController *motorName)
 	motorName->changeSpeed = changeSpeedMotor;
 }
 ```
+<a name="volatile"></a>
 
-## 3. **VOLATILE**
+## **III. VOLATILE**
 
 - Từ khóa volatile trong ngôn ngữ lập trình C được sử dụng để báo hiệu cho trình biên dịch rằng một biến có thể thay đổi ngẫu nhiên, ngoài sự kiểm soát của chương trình. Việc này ngăn chặn trình biên dịch tối ưu hóa hoặc xóa bỏ các thao tác trên biến đó, giữ cho các thao tác trên biến được thực hiện như đã được định nghĩa.
 
@@ -549,8 +589,9 @@ int main()
 	a = 200;
 }
 ```
+<a name="register"></a>
 
-## 4. **REGISTER**
+## **IV. REGISTER**
 
 - Trong ngôn ngữ lập trình C, từ khóa register được sử dụng để chỉ ra ý muốn của lập trình viên rằng một biến được sử dụng thường xuyên và có thể được lưu trữ trong một thanh ghi máy tính, chứ không phải trong bộ nhớ RAM. 
 
