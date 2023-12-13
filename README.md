@@ -4,6 +4,8 @@ Trần Minh Trí
 
 Lịch học: thứ 3, 5, 7; 8:9 pm
 
+---
+
 # **MỤC LỤC**
 
 [**LESSON 1: MACRO**](#Lesson1)
@@ -13,6 +15,8 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 [**LESSON 3: POINTER**](#Lesson3)
 
 [**LESSON 4: EXTERN - STATIS - VOLATILE - REGISTER**](#Lesson4)
+
+---
 
 <a name="Lesson1"></a>
 
@@ -104,6 +108,8 @@ Việc sử dụng các chỉ thị này giúp tránh các vấn đề như:
 
 
 - Xung Đột: Nếu hai hoặc nhiều tệp tiêu đề có cùng tên macro, chúng có thể xung đột với nhau. Việc sử dụng các chỉ thị này giúp ngăn chặn các xung đột này.
+
+---
 
 <a name="Lesson2"></a>
 
@@ -332,9 +338,13 @@ void checkTypeSizes() {
 }
 ```
 
+---
+
 <a name="Lesson3"></a>
 
 # **LESSON 3: POINTER**
+
+---
 
 <a name="Lesson4"></a>
 
@@ -575,3 +585,4 @@ int main() {
     return 0;
 }
 ```
+---
