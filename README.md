@@ -27,6 +27,12 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 [**LESSON 3: POINTER**](#Lesson3)
 
+- [**I. POINTER**](#pointer)
+- [**II. FUNCTION POINTER**](#function-pointer)
+- [**III. VOID POINTER**](#void-pointer)
+- [**IV. POINTER TO POINTER**](#pointer-to-pointer)
+- [**V. NULL POINTER**](#null-pointer)
+
 [**LESSON 4: EXTERN - STATIS - VOLATILE - REGISTER**](#Lesson4)
 
 - [**I. EXTERN**](#extern)
@@ -378,6 +384,116 @@ void checkTypeSizes() {
 
 # **LESSON 3: POINTER**
 
+<a name="pointer"></a>
+
+## **I. POINTER**
+
+- Trong ngôn ngữ lập trình C, con trỏ (pointer) là một biến chứa địa chỉ bộ nhớ của một biến khác. 
+
+- Việc sử dụng con trỏ giúp chúng ta thực hiện các thao tác trên bộ nhớ một cách linh hoạt hơn. 
+
+<img src="https://i.imgur.com/N2JKlMe.png">
+
+- Cách khai báo:
+
+```c
+int *ptr;  // con trỏ đến kiểu int
+char *ptr_char;  // con trỏ đến kiểu char
+float *ptr_float;  // con trỏ đến kiểu float
+```
+
+- Lấy địa chỉ của một biến và truy cập giá trị:
+
+```c
+int x = 10;
+int *ptr_x = &x;  // ptr_x giờ đây chứa địa chỉ của x
+int y = *ptr_x;  // y sẽ bằng giá trị của x
+```
+
+- Kích thước của con trỏ phụ thuộc vào kiến trúc máy tính và trình biên dịch:
+
+```c
+#include <stdio.h>
+int main() {
+    int *ptr;
+    printf("Size of pointer: %d bytes\n", sizeof(ptr));return 0;
+    }
+```
+- Ứng dụng:
+
+```c
+#include <stdio.h>
+void swap(int *a, int *b)
+{
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+int main()
+{
+    int a = 10, b = 20;
+    swap(&a, &b);
+    printf("value a is: %d\n", a);
+    printf("value b is: %d\n", b);
+    return 0;
+}
+
+
+```
+<a name="function-pointer"></a>
+
+## **II. FUNCTION POINTER**
+
+- Pointer to function (con trỏ hàm) là một biến mà giữ địa chỉ của một hàm. Có nghĩa là, nó trỏ đến vùng nhớ trong bộ nhớ chứa mã máy của hàm được định nghĩa trong chương trình.
+
+- Trong ngôn ngữ lập trình C, con trỏ hàm cho phép bạn truyền một hàm như là một đối số cho một hàm khác, lưu trữ địa chỉ của hàm trong một cấu trúc dữ liệu, hoặc thậm chí truyền hàm như một giá trị trả về từ một hàm khác.
+
+**vd1:**
+
+```c
+#include <stdio.h>
+// Hàm mẫu 1
+void greetEnglish() {
+    printf("Hello!\n");
+}
+
+// Hàm mẫu 2
+void greetFrench() {
+    printf("Bonjour!\n");
+}
+
+int main() {
+    // Khai báo con trỏ hàm
+    void (*ptrToGreet)();
+
+    // Gán địa chỉ của hàm greetEnglish cho con trỏ hàm
+    ptrToGreet = greetEnglish;
+
+    // Gọi hàm thông qua con trỏ hàm
+    (*ptrToGreet)();  // In ra: Hello!
+
+    // Gán địa chỉ của hàm greetFrench cho con trỏ hàm
+    ptrToGreet = greetFrench;
+
+    // Gọi hàm thông qua con trỏ hàm
+    (*ptrToGreet)();  // In ra: Bonjour!
+
+    return 0;
+}
+```
+
+<a name="void-pointer"></a>
+
+## **III. VOID POINTER**
+
+<a name="pointer-to-pointer"></a>
+
+## **IV. POINTER TO POINTER**
+
+<a name="null-pointer"></a>
+
+## **V. NULL POINTER**
 ---
 
 <a name="Lesson4"></a>
