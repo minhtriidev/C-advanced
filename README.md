@@ -18,6 +18,8 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
         - [**c. Công đoạn dịch Assembly**](#c-công-đoạn-dịch-assembly)
         - [**d. Giai đoạn Linker**](#d-giai-đoạn-linker)
 
+- [**II. #ifndef, #define, và #endif**](#ii-ifndef-define-và-endif)
+
 [**LESSON 2: STDARG AND ASSSERT**](#Lesson2)
 
 - [**I. Thư viện stdarg**](#i-thư-viện-stdarg)
@@ -110,8 +112,9 @@ Linker
 gcc main.o -o main
 ```
 
-<a name="#ifndef, #define, và #endif"></a>
-## II. **#ifndef, #define, và #endif**
+<a name="#ii-ifndef-define-và-endif"></a>
+
+## **II. #ifndef, #define, và #endif**
 
 
 - Là các chỉ thị tiền xử lý (preprocessor directives) trong ngôn ngữ lập trình C và C++. Chúng được sử dụng để tạo ra các biểu thức điều kiện để ngăn chặn sự bao gồm (include) một tệp (file) tiêu đề (header file) nhiều lần trong cùng một đơn vị biên dịch (translation unit), nhằm tránh những vấn đề như định nghĩa nhiều lần hoặc xung đột.
