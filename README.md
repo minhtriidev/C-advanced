@@ -44,6 +44,14 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 - [**III. VOLATILE**](#volatile)
 - [**IV. REGISTER**](#register)
 
+[**LESSON 5: GOTO - SETJMP**](#Lesson5)
+
+- [**I. GOTO**](#goto)
+
+- [**II. SETJMP**](#setjmp)
+
+[**LESSON 6: BITMASK**](#Lesson6)
+
 ---
 
 <a name="Lesson1"></a>
@@ -51,9 +59,11 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 # **LESSON 1: MACRO**
 
 <a name="Quá-trình-biên-dịch-một-chương-trình-C"></a>
+
 ## I. **Quá trình biên dịch một chương trình C/C++**
 
 <a name="1-định-nghĩa"></a>
+
 ### **1. Định nghĩa**
 
 Quy trình dịch là quá trình chuyển đổi từ ngôn ngữ bậc cao (NNBC) (C/C++, Pascal, Java, C#…) sang ngôn ngữ đích (ngôn ngữ máy) để máy tính có thể hiểu và thực thi. Ngôn ngữ lập trình C là một ngôn ngữ dạng biên dịch. Chương trình được viết bằng C muốn chạy được trên máy tính phải trải qua một quá trình biên dịch để chuyển đổi từ dạng mã nguồn sang chương trình dạng mã thực thi. Quá trình được chia ra làm 4 giai đoạn chính:
@@ -1126,4 +1136,358 @@ int main() {
     return 0;
 }
 ```
+---
+<a name="Lesson5"></a>
+
+# **LESSON 5: GOTO - SETJMP**
+
+<a name="Goto"></a>
+
+## I. **Goto**
+
+- goto là một từ khóa trong ngôn ngữ lập trình C, cho phép chương trình nhảy đến một nhãn (label) đã được đặt trước đó trong cùng một hàm. 
+
+- Mặc dù nó cung cấp khả năng kiểm soát flow của chương trình, nhưng việc sử dụng goto thường được xem là không tốt vì nó có thể làm cho mã nguồn trở nên khó đọc và khó bảo trì.
+
+- goto sẽ cần thiết khi có nhiều vòng lặp lồng vào nhau (vd3) hoặc các mảng đa chiều trong xử lý ảnh.
+
+**vd1: Dùng nhãn start và end thay thế cho vòng lặp for, while**
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 0;
+    // Đặt nhãn
+    start:
+    if (i >= 5) {
+        goto end;  // Chuyển control đến nhãn "end"
+        }
+        printf("%d ", i);
+        i++;
+        goto start;  // Chuyển control đến nhãn "start"
+        // Nhãn "end"
+        end:
+        printf("\n");
+    return 0;
+}
+```
+
+**vd2:Dùng nhãn skip_sleep để thay thế break trong switch case**
+
+```c
+#include <stdio.h>
+void delay(double second)
+{
+    double start = 0;
+    while (start < second * 6000000)
+    {
+        start++;
+    }
+}
+
+// Khai báo các trạng thái đèn giao thông
+typedef enum 
+{
+    RED,
+    YELLOW,
+    GREEN
+} TrafficLightState;
+
+
+int main() {
+    
+
+    // Ban đầu, đèn giao thông ở trạng thái đỏ
+    TrafficLightState state = RED;
+
+    // Vòng lặp vô hạn để mô phỏng đèn giao thông
+    while (1) {
+        switch (state) {
+            case RED:
+                printf("RED Light\n");
+                delay(50);  // Giữ trạng thái đèn đỏ trong x giây
+                
+                // Chuyển đến trạng thái đèn vàng
+                state = GREEN;
+                goto skip_sleep;  // Nhảy qua sleep() khi chuyển trạng thái
+            case YELLOW:
+                printf("YELLOW Light\n");
+                delay(20);  // Giữ trạng thái đèn vàng trong y giây
+                
+                // Chuyển đến trạng thái đèn xanh
+                state = RED;
+                goto skip_sleep;  // Nhảy qua sleep() khi chuyển trạng thái
+            case GREEN:
+                printf("GREEN Light\n");
+                delay(100);  // Giữ trạng thái đèn xanh trong z giây
+                
+                // Chuyển đến trạng thái đèn đỏ
+                state = YELLOW;
+                goto skip_sleep;  // Nhảy qua sleep() khi chuyển trạng thái
+        }
+
+        // Nhãn để nhảy qua sleep() khi chuyển trạng thái
+        skip_sleep:;
+    }
+
+    return 0;
+}
+```
+
+**vd3: In chữ trong biển quảng cáo, sử dụng nhiều vòng lặp lồng vào nhau và cần out ra khỏi vòng lặp ngay lặp tức khi nhấn button**
+
+```c
+#include <stdio.h>
+
+void delay()
+{
+    double start;
+    while (start < 60000000)
+    {
+        start++;
+    }
+    
+}
+
+char letter = 'A';
+
+char first_sentence[] = "HELLO";
+char second_sentence[] = "FASHION COTHES";
+char third_sentence[] = "SUITABLE PRICE";
+
+
+int letter_A[8][8] = {  {0,0,1,0,0,0,0,0},
+                        {0,1,0,1,0,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,1,1,1,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},  };
+
+int letter_H[8][8] = {  {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,1,1,1,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},  };
+
+int letter_L[8][8] = {  {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,1,1,1,1,0,0,0},  };
+
+/*
+H, e, l,o, F, a, ....
+*/
+
+int button = 0;
+
+typedef enum
+{
+    FIRST,
+    SECOND,
+    THIRD
+
+}   Sentence;
+
+int main() {
+
+    Sentence sentence = FIRST;
+
+    while(1)
+    {
+        switch (sentence)
+        {
+        case FIRST:
+            for (int index = 0; index < sizeof(first_sentence); index++)
+            {
+                if (first_sentence[index] == 'H')
+                {
+                    for (int i = 0; i < 8; i++) 
+                    {    
+                        for (int j = 0; j < 8; j++) 
+                        {
+                            if (letter_H[i][j] == 1) 
+                            {
+                                printf("Turn on led at [%d][%d]\n", i,j);
+                                if (button == 1)
+                                {
+                                   goto exit_loops;
+                                }
+                                
+                            }
+                        }
+                        // tat den
+                    }
+                }
+                if (first_sentence[index] == 'e')
+                {
+                    // in ra chu e
+                }
+            }
+            printf("first sentence is done\n");
+            delay();
+            goto logic;
+
+        case SECOND:
+            for (int index = 0; index < sizeof(second_sentence); index++)
+            {
+                if (second_sentence[index] == 'A')
+                {
+                    for (int i = 0; i < 8; i++) 
+                    {    
+                        for (int j = 0; j < 8; j++) 
+                        {
+                            if (letter_A[i][j] == 1) 
+                            {
+                                printf("Turn on led at [%d][%d]\n", i,j);
+                                if (button == 1)
+                                {
+                                   goto exit_loops;
+                                }
+                                
+                            }
+                        }
+                        // tat den led
+                    }
+                }
+                if (second_sentence[index] == 'F')
+                {
+                    // in ra chu F
+                }
+            }
+            printf("second sentence is done\n");
+            delay();
+            goto logic;
+
+        case THIRD:
+            for (int index = 0; index < sizeof(third_sentence); index++)
+            {
+                if (third_sentence[index] == 'L')
+                {
+                    for (int i = 0; i < 8; i++) 
+                    {    
+                        for (int j = 0; j < 8; j++) 
+                        {
+                            if (letter_L[i][j] == 1) 
+                            {
+                                printf("Turn on led at [%d][%d]\n", i,j);
+                                if (button == 1)
+                                {
+                                   goto exit_loops;
+                                }
+                                
+                            }
+                        }
+                        // tat den led
+                    }
+                }
+                if (third_sentence[index] == 'E')
+                {
+                    // in ra chu H
+                }
+            }
+            printf("third sentence is done\n");
+            delay();
+            //button = 1;
+            goto logic;
+        }
+
+        logic:
+            if (sentence == FIRST)
+            {
+                sentence = SECOND;
+            }
+            else if (sentence == SECOND)
+            {
+                sentence = THIRD;
+            }
+            else if (sentence == THIRD)
+            {
+                sentence = FIRST;
+            }
+            goto exit;
+            
+        exit_loops:
+            printf("Stop!\n");
+            break;
+        
+        exit:;
+         
+    }
+   
+    return 0;
+}
+
+```
+
+<a name="setjmp"></a>
+
+## II. **SETJMP**
+
+- setjmp.h là một thư viện trong ngôn ngữ lập trình C, cung cấp hai hàm chính là setjmp và longjmp. 
+
+- Cả hai hàm này thường được sử dụng để thực hiện xử lý ngoại lệ trong C, mặc dù nó không phải là một cách tiêu biểu để xử lý ngoại lệ trong ngôn ngữ này.
+
+- Nếu gọi longjmp và gán giá trị cho buff thì nó sẽ nhảy tới vị trí setjmp.
+
+- setjmp khác với assert:
+
+    - assert sẽ đưa ra cảnh báo lỗi và dừng chương trình (tức là những lỗi này là lỗi nghiêm trọng).
+
+    - setjmp thì sẽ được sử dụng với những lỗi chưa đến mức phải dừng chương trình lại mà chỉ cần thực hiện chức năng báo lỗi hoặc in ra yêu cầu để khắc phục (ví dụ như khi đọc UART mà chưa có dữ liệu thì gửi yêu cầu để đọc lại).
+
+**vd:**
+
+```c
+#include <stdio.h>
+#include <setjmp.h>
+
+jmp_buf buf;
+int exception_code;
+
+#define TRY if ((exception_code = setjmp(buf)) == 0) 
+#define CATCH(x) else if (exception_code == (x)) 
+#define THROW(x) longjmp(buf, (x))
+
+
+double divide(int a, int b) {
+    if (b == 0) {
+        THROW(1); // Mã lỗi 1 cho lỗi chia cho 0
+    }
+    return (double)a / b;
+}
+
+int main() {
+    int a = 10;
+    int b = 0;
+    double result = 0.0;
+
+    TRY {
+        result = divide(a, b);
+        printf("Result: %f\n", result);
+    } CATCH(1) {
+        printf("Error: Divide by 0!\n");
+    }
+
+
+    // Các xử lý khác của chương trình
+    return 0;
+}
+
+```
+---
+
+<a name="Lesson6"></a>
+
+[**LESSON 6: BITMASK**](#Lesson6)
+
 ---
