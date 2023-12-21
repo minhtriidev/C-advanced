@@ -1499,7 +1499,7 @@ int main() {
 
 <a name="Lesson6"></a>
 
-[**LESSON 6: BITMASK**](#Lesson6)
+# [**LESSON 6: BITMASK**](#Lesson6)
 
 - Bitmask là một kỹ thuật sử dụng các bit để lưu trữ và thao tác với các cờ (flags) hoặc trạng thái. Có thể sử dụng bitmask để đặt, xóa và kiểm tra trạng thái của các bit cụ thể trong một từ (word).
 	
@@ -1508,7 +1508,7 @@ int main() {
 
 <a name="not"></a>
 
-**I. NOT bitwise**
+## **I. NOT bitwise**
 
 - Dùng để thực hiện phép NOT bitwise trên từng bit của một số. Kết quả là bit đảo ngược của số đó.
 
@@ -1516,7 +1516,7 @@ int main() {
 
 <a name="and"></a>
 
-**II. AND bitwise**
+## **II. AND bitwise**
 
 - Dùng để thực hiện phép AND bitwise giữa từng cặp bit của hai số. Kết quả là 1 nếu cả hai bit tương ứng đều là 1, ngược lại là 0 (chỉ đúng khi cả hai cùng đúng).
 
@@ -1524,7 +1524,7 @@ int main() {
 
 <a name="or"></a>
 
-**III. OR bitwise**
+## **III. OR bitwise**
 
 - Dùng để thực hiện phép OR bitwise giữa từng cặp bit của hai số. Kết quả là 1 nếu có hơn một bit tương ứng là 1 (chỉ cần 1 trong 2 cái đúng là được).
 
@@ -1532,7 +1532,7 @@ int main() {
 
 <a name="xor"></a>
 
-**IV. XOR bitwise**
+## **IV. XOR bitwise**
 
 - Dùng để thực hiện phép XOR bitwise giữa từng cặp bit của hai số. Kết quả là 1 nếu chỉ có một bit tương ứng là 1 (khác nhau là 1, giống nhau là 0).
 
@@ -1540,7 +1540,7 @@ int main() {
 
 <a name="shift"></a>
 
-**V. SHIFT LEFT AND SHIFT RIGHT bitwise**
+## **V. SHIFT LEFT AND SHIFT RIGHT bitwise**
 
 - Dùng để di chuyển bit sang trái hoặc sang phải.
 
@@ -1785,6 +1785,6 @@ int main() {
 
 <a name="Lesson7"></a>
 
-[**LESSON 7: STRUCT - UNION**](#Lesson7)
+# [**LESSON 7: STRUCT - UNION**](#Lesson7)
 
 ---
