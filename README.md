@@ -52,6 +52,17 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 [**LESSON 6: BITMASK**](#Lesson6)
 
+- [**I. NOT bitwise**](#not)
+
+- [**II. AND bitwise**](#and)
+
+- [**III. OR bitwise**](#or)
+
+- [**IV. XOR bitwise**](#xor)
+
+- [**V. SHIFT LEFT AND SHIFT RIGHT bitwise**](#shift)
+
+[**LESSON 7: STRUCT - UNION**](#Lesson7)
 ---
 
 <a name="Lesson1"></a>
@@ -1489,5 +1500,291 @@ int main() {
 <a name="Lesson6"></a>
 
 [**LESSON 6: BITMASK**](#Lesson6)
+
+- Bitmask là một kỹ thuật sử dụng các bit để lưu trữ và thao tác với các cờ (flags) hoặc trạng thái. Có thể sử dụng bitmask để đặt, xóa và kiểm tra trạng thái của các bit cụ thể trong một từ (word).
+	
+- Bitmask thường được sử dụng để tối ưu hóa bộ nhớ, thực hiện các phép toán logic trên một cụm bit, và quản lý các trạng thái, quyền truy cập, hoặc các thuộc tính khác của một đối tượng.
+
+
+<a name="not"></a>
+
+**I. NOT bitwise**
+
+- Dùng để thực hiện phép NOT bitwise trên từng bit của một số. Kết quả là bit đảo ngược của số đó.
+
+- Cú pháp: `int result = ~num;`
+
+<a name="and"></a>
+
+**II. AND bitwise**
+
+- Dùng để thực hiện phép AND bitwise giữa từng cặp bit của hai số. Kết quả là 1 nếu cả hai bit tương ứng đều là 1, ngược lại là 0 (chỉ đúng khi cả hai cùng đúng).
+
+- Cú pháp: `int result = num1 & num2;`
+
+<a name="or"></a>
+
+**III. OR bitwise**
+
+- Dùng để thực hiện phép OR bitwise giữa từng cặp bit của hai số. Kết quả là 1 nếu có hơn một bit tương ứng là 1 (chỉ cần 1 trong 2 cái đúng là được).
+
+- Cú pháp: `int result = num1 | num2;`
+
+<a name="xor"></a>
+
+**IV. XOR bitwise**
+
+- Dùng để thực hiện phép XOR bitwise giữa từng cặp bit của hai số. Kết quả là 1 nếu chỉ có một bit tương ứng là 1 (khác nhau là 1, giống nhau là 0).
+
+- Cú pháp: `int result = num1 ^ num2;`
+
+<a name="shift"></a>
+
+**V. SHIFT LEFT AND SHIFT RIGHT bitwise**
+
+- Dùng để di chuyển bit sang trái hoặc sang phải.
+
+- Trong trường hợp <<, các bit ở bên phải sẽ được dịch sang trái, và các bit trái cùng sẽ được đặt giá trị 0. Ví dụ: 1 << 2 sẽ thành 0000 0100
+
+- Trong trường hợp >>, các bit ở bên trái sẽ được dịch sang phải, và các bit phải cùng sẽ được đặt giá trị 0 hoặc 1 tùy thuộc vào giá trị của bit cao nhất (bit dấu). Ví dụ: 8 >> 2 sẽ thành 0000 0010
+
+**vd1: Tùy chọn các đặc điểm cho nhân vật trong game**
+
+```c
+#include <stdio.h>
+#include <stdint.h>
+
+#define GENDER        (1 << 0)  // Bit 0: Giới tính (0 = Nữ, 1 = Nam)
+#define TSHIRT        (1 << 1)  // Bit 1: Áo thun (0 = Không, 1 = Có)
+#define HAT           (1 << 2)  // Bit 2: Nón (0 = Không, 1 = Có)
+#define SHOES         (1 << 3)  // Bit 3: Giày (0 = Không, 1 = Có)
+// Tự thêm 5 tính năng khác
+#define FEATURE1      (1 << 4)  // Bit 4: Tính năng 1
+#define FEATURE2      (1 << 5)  // Bit 5: Tính năng 2
+#define FEATURE3      (1 << 6)  // Bit 6: Tính năng 3
+#define FEATURE4      (1 << 7)  // Bit 7: Tính năng 4
+
+void enableFeature(uint8_t *features, uint8_t feature) {
+    *features |= feature;
+}
+
+void disableFeature(uint8_t *features, uint8_t feature) {
+    *features &= ~feature;
+}
+
+void listSelectedFeatures(uint8_t features) {
+    printf("Selected Features:\n");
+
+    if ((features & GENDER) != 0) {
+        printf("- Gender\n");
+    }
+    if ((features & TSHIRT) != 0 ) {
+        printf("- T-Shirt\n");
+    }
+    if ((features & HAT) != 0) {
+        printf("- Hat\n");
+    }
+    if ((features & SHOES) != 0 ) {
+        printf("- Shoes\n");
+    }
+    // Thêm các điều kiện kiểm tra cho các tính năng khác
+}
+
+
+int main() {
+    uint8_t options = 0;
+
+    // Thêm tính năng 
+    enableFeature(&options, GENDER | TSHIRT | HAT);
+
+    // Tắt tính năng
+    disableFeature(&options, TSHIRT);
+
+    // Liệt kê các tính năng đã chọn
+    listSelectedFeatures(options);
+    
+    return 0;
+}
+
+```
+
+**vd2: Bật tắt các LED được định nghĩa trước trong cùng 1 PORT**
+
+```c
+#include <stdio.h>
+#include <stdint.h>
+
+#define LED1 (1 << 0) // 0001
+#define LED2 (1 << 1) // 0010
+#define LED3 (1 << 2) // 0100
+#define LED4 (1 << 3) // 1000
+
+
+void enableLED(uint8_t *GPIO_PORT, uint8_t LED) {
+    *GPIO_PORT |= LED;
+}
+
+void disableLED(uint8_t *GPIO_PORT, uint8_t LED) {
+    *GPIO_PORT &= ~LED;
+}
+
+void stateLED(uint8_t *GPIO_PORT) {
+    if (*GPIO_PORT & LED1 )
+    {
+        printf("LED1 is on\n");
+    }
+
+    if (*GPIO_PORT & LED2)
+    {
+        printf("LED2 is on\n");
+    }
+
+    if (*GPIO_PORT & LED3)
+    {
+        printf("LED3 is on\n");
+    }
+}
+
+int main() {
+    uint8_t GPIO_PORT = 0; // Giả sử là biến điều khiển cổng GPIO
+
+    // Bật LED1 và LED3
+    enableLED(&GPIO_PORT, LED1 | LED3);
+
+    // Kiểm tra trạng thái LED
+    stateLED(&GPIO_PORT);
+
+    // Tắt LED1 và bật LED2
+    disableLED(&GPIO_PORT, LED1);
+    enableLED(&GPIO_PORT, LED2);
+
+    // Kiểm tra lại trạng thái LED
+    stateLED(&GPIO_PORT);
+
+    return 0;
+}
+
+```
+
+**vd3:Sử dụng kết hợp với Macro và Struct nhằm tối ưu bộ nhớ cho chương trình**
+
+```c
+#include <stdio.h>
+#include <stdint.h>
+
+#define ENABLE 1
+#define DISABLE 0
+
+typedef struct {
+    uint8_t LED1 : 1;
+    uint8_t LED2 : 1;
+    uint8_t LED3 : 1;
+    uint8_t LED4 : 1;
+    uint8_t LED5 : 1;
+    uint8_t LED6 : 1;
+    uint8_t LED7 : 1;
+    uint8_t LED8 : 1;
+} LEDStatus;
+
+
+int main() {
+    LEDStatus ledStatus = {.LED7 = ENABLE};
+
+    // Bật LED 1 và 3
+    ledStatus.LED1 = ENABLE;
+    ledStatus.LED3 = ENABLE;
+
+    // Kiểm tra trạng thái của LED 1
+    if (ledStatus.LED7) {
+        printf("LED7 is on\n");
+    }
+    return 0;
+}
+
+```
+
+**vd4:Lựa chọn các thông số đặc điểm của xe**
+
+```c
+#include <stdio.h>
+#include <stdint.h>
+
+#define COLOR_RED 0
+#define COLOR_BLUE 1
+#define COLOR_BLACK 2
+#define COLOR_WHITE 3
+
+#define POWER_100HP 0
+#define POWER_150HP 1
+#define POWER_200HP 2
+
+#define ENGINE_1_5L 0
+#define ENGINE_2_0L 1
+
+#define SUNROOF_MASK (1 << 0)     // 0001
+#define PREMIUM_AUDIO_MASK (1 << 1) // 0010
+#define SPORTS_PACKAGE_MASK (1 << 2) // 0100
+// Thêm các bit masks khác tùy thuộc vào tùy chọn
+
+typedef struct {
+    uint8_t additionalOptions : 3; // 3 bits cho các tùy chọn bổ sung
+    uint8_t CarColor : 2;
+    uint8_t CarPower : 2;
+    uint8_t CarEngine : 1;
+} CarOptions;
+
+void configureCar(CarOptions *car, uint8_t color, uint8_t power, uint8_t engine, uint8_t options) {
+    car->CarColor = color;
+    car->CarPower = power;
+    car->CarEngine = engine;
+    car->additionalOptions = options;
+}
+
+void setOption(CarOptions *car, uint8_t optionMask) {
+    car->additionalOptions |= optionMask;
+}
+
+void unsetOption(CarOptions *car, uint8_t optionMask) {
+    car->additionalOptions &= ~optionMask;
+}
+
+void displayCarOptions(const CarOptions car) {
+    const char *colors[] = {"Red", "Blue", "Black", "White"};
+    const char *powers[] = {"100HP", "150HP", "200HP"};
+    const char *engines[] = {"1.5L", "2.0L"};
+
+    printf("Car Configuration: \n");
+    printf("Color: %s\n", colors[car.CarColor]);
+    printf("Power: %s\n", powers[car.CarPower]);
+    printf("Engine: %s\n", engines[car.CarEngine]);
+    printf("Sunroof: %s\n", (car.additionalOptions & SUNROOF_MASK) ? "Yes" : "No");
+    printf("Premium Audio: %s\n", (car.additionalOptions & PREMIUM_AUDIO_MASK) ? "Yes" : "No");
+    printf("Sports Package: %s\n", (car.additionalOptions & SPORTS_PACKAGE_MASK) ? "Yes" : "No");
+}
+
+
+int main() {
+    CarOptions myCar = {COLOR_BLACK, POWER_150HP, ENGINE_2_0L};
+
+    setOption(&myCar, SUNROOF_MASK);
+    setOption(&myCar, PREMIUM_AUDIO_MASK);
+    
+    displayCarOptions(myCar);
+    printf("------------------\n");
+
+    unsetOption(&myCar, PREMIUM_AUDIO_MASK); 
+    displayCarOptions(myCar);
+
+    printf("size of my car: %d\n", sizeof(CarOptions));
+
+    return 0;
+}
+
+```
+---
+
+<a name="Lesson7"></a>
+
+[**LESSON 7: STRUCT - UNION**](#Lesson7)
 
 ---
