@@ -67,7 +67,7 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 <a name="Lesson1"></a>
 
-# **LESSON 1: MACRO**
+# [**LESSON 1: MACRO**](#Lesson1)
 
 <a name="Quá-trình-biên-dịch-một-chương-trình-C"></a>
 
@@ -173,7 +173,7 @@ Việc sử dụng các chỉ thị này giúp tránh các vấn đề như:
 
 <a name="Lesson2"></a>
 
-# **LESSON 2: STDARG AND ASSSERT**
+# [**LESSON 2: STDARG AND ASSSERT**](#Lesson2)
 
 <a name="#i-thư-viện-stdarg"></a>
 
@@ -405,7 +405,7 @@ void checkTypeSizes() {
 
 <a name="Lesson3"></a>
 
-# **LESSON 3: POINTER**
+# [**LESSON 3: POINTER**](#Lesson3)
 
 <a name="pointer"></a>
 
@@ -900,7 +900,7 @@ int main() {
 
 <a name="Lesson4"></a>
 
-# **LESSON 4: EXTERN - STATIS - VOLATILE - REGISTER**
+# [**LESSON 4: EXTERN - STATIS - VOLATILE - REGISTER**](#Lesson4)
 
 <a name="extern"></a>
 
@@ -1150,7 +1150,7 @@ int main() {
 ---
 <a name="Lesson5"></a>
 
-# **LESSON 5: GOTO - SETJMP**
+# [**LESSON 5: GOTO - SETJMP**](#Lesson5)
 
 <a name="Goto"></a>
 
@@ -1666,7 +1666,7 @@ int main() {
 
 ```
 
-**vd3:Sử dụng kết hợp với Macro và Struct nhằm tối ưu bộ nhớ cho chương trình**
+**vd3: Sử dụng kết hợp với Macro và Struct nhằm tối ưu bộ nhớ cho chương trình**
 
 ```c
 #include <stdio.h>
@@ -1703,7 +1703,7 @@ int main() {
 
 ```
 
-**vd4:Lựa chọn các thông số đặc điểm của xe**
+**vd4: Lựa chọn các thông số đặc điểm của xe**
 
 ```c
 #include <stdio.h>
