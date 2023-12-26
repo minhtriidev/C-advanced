@@ -1880,17 +1880,17 @@ sv1->lop = 15;
 
 - Cách khai báo và truy cập giống như struct.
 
-- Ứng dụng kết hợp giữa union và struct:
+- Ứng dụng kết hợp giữa union và struct: 
 
-    - Khi muốn gửi dữ liệu chứa nhiều thông tin từ MCU A sang MCU B và MCU B chỉ nhận được dữ liệu đóng gói dưới dạng khung để thuận tiện và tiết kiệm tài nguyên bộ nhớ:
+Khi muốn gửi dữ liệu chứa nhiều thông tin từ MCU A sang MCU B và MCU B chỉ nhận được dữ liệu đóng gói dưới dạng khung để thuận tiện và tiết kiệm tài nguyên bộ nhớ:
 
 <img src="https://i.imgur.com/2ysRHlL.png">
 
-    - Giả sử frame gửi đi có các phần là id, data và checksum như hình vẽ:
+- Giả sử frame gửi đi có các phần là id, data và checksum như hình vẽ:
 
 <img src="https://i.imgur.com/ZzusxQN.png ">
 
-    - Ta sẽ sử dụng struct để tạo ra kiểu dữ liệu cho frame. Sau đó dùng tính chất sắp xếp bộ nhớ của union để đóng gói dữ liệu.
+- Ta sẽ sử dụng struct để tạo ra kiểu dữ liệu cho frame. Sau đó dùng tính chất sắp xếp bộ nhớ của union để đóng gói dữ liệu.
 
 ```c
 #include <stdio.h>
