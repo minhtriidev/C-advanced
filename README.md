@@ -1787,4 +1787,143 @@ int main() {
 
 # [**LESSON 7: STRUCT - UNION**](#Lesson7)
 
+<a name="struct"></a>
+
+## **I. STRUCT**
+
+- Trong ngôn ngữ lập trình C, struct là một cấu trúc dữ liệu cho phép lập trình viên tự định nghĩa một kiểu dữ liệu mới bằng cách nhóm các biến có các kiểu dữ liệu khác nhau lại với nhau. 
+
+- Struct cho phép tạo ra một thực thể dữ liệu lớn hơn và có tổ chức hơn từ các thành viên (members) của nó.
+
+- Chú ý cách sắp xếp các biến trong struct để tối ưu bộ nhớ. Nên xếp các biến có kích thước lớn hơn ở trên cùng và giảm dần.
+
+- Có 2 cách khai báo struct:
+
+    - Cách 1: 
+
+```c
+struct structureName
+{
+dataType member1;
+dataType member2;
+...
+};
+```
+
+**vd:**
+```c
+struct student {
+    char name[30];
+    int tuoi;
+    char sodienthoai[20];
+    float lop;
+}
+
+struct student sv1;
+struct student sv2;
+struct student sv[10];
+```
+    - Cách 2: 
+```c
+typedef struct
+{
+dataType member1;
+dataType member2;
+...
+} structureName;
+```
+**vd:**
+```c
+typedef struct {
+    char name[30];
+    int tuoi;
+    char sodienthoai[20];
+    float lop;
+} student;
+
+student sv1;
+student sv2;
+student sv[10];
+```
+
+- Truy xuất dữ liệu:
+
+    - Sử dụng “.” → Toán tử truy xuất tới thành viên khi khai báo biến bình thường.
+    - Sử dụng “→” → Toán tử truy xuất tới thành viên khi biến là con trỏ.
+
+**vd:**
+```c
+sutdent sv1;
+sv1.name = "Tran Minh Tri"
+sv1.sodienthoai = "0397033999"
+sv1.tuoi = 22;
+sv1.lop = 15;
+```
+
+hoặc 
+
+```c
+sutdent *sv1;
+sv1->name = "Tran Minh Tri"
+sv1->sodienthoai = "0397033999"
+sv1->tuoi = 22;
+sv1->lop = 15;
+```
+
+<a name="union"></a>
+
+## **II. UNION**
+
+- Trong ngôn ngữ lập trình C, union là một cấu trúc dữ liệu giúp lập trình viên kết hợp nhiều kiểu dữ liệu khác nhau vào cùng một vùng nhớ. 
+
+- Mục đích chính của union là tiết kiệm bộ nhớ bằng cách chia sẻ cùng một vùng nhớ cho các thành viên của nó. Điều này có nghĩa là, trong một thời điểm, chỉ một thành viên của union có thể được sử dụng. Điều này được ứng dụng nhằm tiết kiệm bộ nhớ.
+
+- Cách khai báo và truy cập giống như struct.
+
+- Ứng dụng kết hợp giữa union và struct:
+
+    - Khi muốn gửi dữ liệu chứa nhiều thông tin từ MCU A sang MCU B và MCU B chỉ nhận được dữ liệu đóng gói dưới dạng khung để thuận tiện và tiết kiệm tài nguyên bộ nhớ:
+
+<img src="https://i.imgur.com/2ysRHlL.png">
+
+    - Giả sử frame gửi đi có các phần là id, data và checksum như hình vẽ:
+
+<img src="https://i.imgur.com/ZzusxQN.png ">
+
+    - Ta sẽ sử dụng struct để tạo ra kiểu dữ liệu cho frame. Sau đó dùng tính chất sắp xếp bộ nhớ của union để đóng gói dữ liệu.
+
+```c
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+
+
+typedef union {
+    struct {
+        uint8_t id[2];
+        uint8_t data[4];
+        uint8_t check_sum[2];
+    } data;
+
+    uint8_t frame[8];
+
+} Data_Frame;
+
+
+int main(int argc, char const *argv[])
+{
+    Data_Frame transmitter_data;
+    
+    strcpy(transmitter_data.data.id, "10");
+    strcpy(transmitter_data.data.data, "1234");
+    strcpy(transmitter_data.data.check_sum, "70");
+
+	Data_Frame receiver_data;
+    strcpy(receiver_data.frame, transmitter_data.frame);
+	
+    
+    return 0;
+}
+
+```
 ---
