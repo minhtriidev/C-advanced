@@ -1946,6 +1946,10 @@ int main(int argc, char const *argv[])
 
 # [**LESSON 8: MEMORY LAYOUT**](#Lesson8)
 
+- Chương trình main.exe ( trên window), main.hex ( nạp vào vi điều khiển) được lưu ở bộ nhớ SSD hoặc FLASH. Khi nhấn run chương trình trên window ( cấp nguồn cho vi điều khiển) thì những chương trình này sẽ được copy vào bộ nhớ RAM để thực thi.
+
+<img src="https://i.imgur.com/IkureDG.png">
+
 <a name="text-segment"></a>
 
 ## **I. TEXT SEGMENT**
