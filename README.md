@@ -63,6 +63,21 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 - [**V. SHIFT LEFT AND SHIFT RIGHT bitwise**](#shift)
 
 [**LESSON 7: STRUCT - UNION**](#Lesson7)
+
+- [**I. STRUCT**](#struct)
+
+- [**II. UNION**](#union)
+
+[**LESSON 8: MEMORY LAYOUT**](#Lesson8)
+
+- [**I. TEXT SEGMENT**](#text-segment)
+
+- [**II. DATA SEGMENT**](#data-segment)
+
+- [**III. STACK**](#stack)
+
+- [**IV. HEAP**](#heap)
+
 ---
 
 <a name="Lesson1"></a>
@@ -1927,3 +1942,25 @@ int main(int argc, char const *argv[])
 
 ```
 ---
+<a name="Lesson8"></a>
+
+# [**LESSON 8: MEMORY LAYOUT**](#Lesson8)
+
+<a name="text-segment"></a>
+
+## **I. TEXT SEGMENT**
+
+<a name="data-segment"></a>
+
+## **II. DATA SEGMENT**
+
+<a name="stack"></a>
+
+## **III. STACK**
+
+<a name="heap"></a>
+
+## **IV. HEAP**
+
+---
+
