@@ -2035,6 +2035,25 @@ int main(int argc, char const *argv[])
     - Điều này cho phép chương trình tạo ra và giải phóng bộ nhớ theo nhu cầu, thích ứng với sự biến đổi của dữ liệu trong quá trình chạy.
     - Các hàm như malloc(), calloc(), realloc(), và free() được sử dụng để cấp phát và giải phóng bộ nhớ trên heap.
 
+- malloc (Memory Allocation):
+    - Chức năng: malloc được sử dụng để cấp phát một khối bộ nhớ có kích thước cụ thể (trong byte).
+    - Cú pháp: `void* malloc(size_t size)`;
+    - Sử dụng: Bạn cần chỉ định kích thước của bộ nhớ bạn muốn cấp phát, và nó trả về một con trỏ kiểu void* trỏ đến địa chỉ bắt đầu của khối bộ nhớ được cấp phát.
+
+- calloc (Contiguous Allocation):
+    - Chức năng: calloc được sử dụng để cấp phát một khối bộ nhớ và khởi tạo tất cả các byte của khối bằng giá trị 0.
+    - Cú pháp: `void* calloc(size_t num_elements, size_t element_size)`;
+    - Sử dụng: Bạn cần chỉ định số lượng phần tử và kích thước của mỗi phần tử, và nó trả về một con trỏ kiểu void* trỏ đến địa chỉ bắt đầu của khối bộ nhớ được cấp phát.
+
+- Sự khác biệt chính giữa malloc và calloc:
+    - Khởi tạo giá trị: malloc không khởi tạo giá trị của bộ nhớ cấp phát, trong khi calloc khởi tạo tất cả các byte của khối bộ nhớ bằng 0.
+    - Tham số: malloc yêu cầu kích thước của bộ nhớ (tính bằng byte), trong khi calloc yêu cầu số lượng phần tử và kích thước của mỗi phần tử.
+
+- realloc (Reallocate Memory):
+    - Chức năng: realloc được sử dụng để thay đổi kích thước của một khối bộ nhớ đã được cấp phát trước đó.
+    - Cú pháp: `void* realloc(void* ptr, size_t size)`;
+    - Sử dụng: Bạn cần truyền con trỏ đã được cấp phát trước đó bằng malloc, calloc, hoặc realloc, cùng với kích thước mới bạn muốn cấp phát. Nó trả về con trỏ mới trỏ đến khối bộ nhớ đã được thay đổi.
+
 **vd1:**
 ```c
 #include <stdlib.h>
