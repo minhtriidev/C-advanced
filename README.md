@@ -80,6 +80,7 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 - [**V. STACK VÀ HEAP**](#stack-va-heap)
 
+[**LESSON 8: MEMORY LAYOUT**](#Lesson8)
 ---
 
 <a name="Lesson1"></a>
@@ -2161,6 +2162,27 @@ int main(int argc, char const *argv[])
 }
 
 ```
+
+**ta được kết quả: với test1 dùng stack nên vùng nhớ sẽ được tự động giải phóng sau khi ra khỏi hàm, còn test2 thì nếu không dùng `free` thì vùng nhớ chưa được giải phóng**
+
+```c
+address of array[0]: 0061FF00
+address of array[1]: 0061FF04
+address of array[2]: 0061FF08
+----------------------       
+address of array[0]: 0061FF00
+address of array[1]: 0061FF04
+address of array[2]: 0061FF08
+----------------------
+address of array[0]: 006E18B0
+address of array[1]: 006E18B4
+address of array[2]: 006E18B8
+----------------------
+address of array[0]: 006E18C8
+address of array[1]: 006E18CC
+address of array[2]: 006E18D0
+----------------------
+```
 ---
 - Stack: bởi vì bộ nhớ Stack cố định nên nếu chương trình bạn sử dụng quá nhiều bộ nhớ vượt quá khả năng lưu trữ của Stack chắc chắn sẽ xảy ra tình trạng tràn bộ nhớ Stack (Stack overflow), các trường hợp xảy ra như bạn khởi tạo quá nhiều biến cục bộ, hàm đệ quy vô hạn,...
 
@@ -2175,4 +2197,11 @@ int foo(int x){
 int *A = (int *)malloc(18446744073709551615);
 ```
 ---
+<a name="Lesson8"></a>
 
+# [**LESSON 8: MEMORY LAYOUT**](#Lesson8)
+
+- JSON là viết tắt của "JavaScript Object Notation" (Ghi chú về Đối tượng JavaScript). Đây là một định dạng truyền tải dữ liệu phổ biến trong lập trình và giao tiếp giữa các máy chủ và trình duyệt web, cũng như giữa các hệ thống khác nhau.
+- JSON được thiết kế để dễ đọc và dễ viết cho con người, cũng như dễ dàng để phân tích và tạo ra cho máy tính. Nó sử dụng một cú pháp nhẹ dựa trên cặp key - value, tương tự như các đối tượng và mảng trong JavaScript. Mỗi đối tượng JSON bao gồm một tập hợp các cặp "key" và "value", trong khi mỗi mảng JSON là một tập hợp các giá trị.
+
+---
