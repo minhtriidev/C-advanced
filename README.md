@@ -80,7 +80,8 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 - [**V. STACK VÀ HEAP**](#stack-va-heap)
 
-[**LESSON 8: MEMORY LAYOUT**](#Lesson8)
+[**LESSON 9: JSON**](#Lesson9)
+
 ---
 
 <a name="Lesson1"></a>
@@ -2197,11 +2198,28 @@ int foo(int x){
 int *A = (int *)malloc(18446744073709551615);
 ```
 ---
-<a name="Lesson8"></a>
+<a name="Lesson9"></a>
 
-# [**LESSON 8: MEMORY LAYOUT**](#Lesson8)
+# [**LESSON 9: JSON**](#Lesson9)
+
 
 - JSON là viết tắt của "JavaScript Object Notation" (Ghi chú về Đối tượng JavaScript). Đây là một định dạng truyền tải dữ liệu phổ biến trong lập trình và giao tiếp giữa các máy chủ và trình duyệt web, cũng như giữa các hệ thống khác nhau.
 - JSON được thiết kế để dễ đọc và dễ viết cho con người, cũng như dễ dàng để phân tích và tạo ra cho máy tính. Nó sử dụng một cú pháp nhẹ dựa trên cặp key - value, tương tự như các đối tượng và mảng trong JavaScript. Mỗi đối tượng JSON bao gồm một tập hợp các cặp "key" và "value", trong khi mỗi mảng JSON là một tập hợp các giá trị.
 
+**vd:**
+```c
+{
+  "name": "John Doe",
+  "age": 30,
+  "isStudent": false,
+  "courses": ["Math", "English", "History"],
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "state": "CA"
+  }
+}
+```
+- Trong đó:
+    - 
 ---
