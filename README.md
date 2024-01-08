@@ -82,6 +82,10 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 [**LESSON 9: JSON**](#Lesson9)
 
+- [**I. Khái niệm**](#khái-niệm)
+
+- [**II. Cấu trúc chuỗi JSON**](#cau-truc-chuoi-json)
+
 ---
 
 <a name="Lesson1"></a>
@@ -2202,6 +2206,9 @@ int *A = (int *)malloc(18446744073709551615);
 
 # [**LESSON 9: JSON**](#Lesson9)
 
+<a name="khái-niệm"></a>
+
+## I. **Khái niệm**
 
 - JSON là viết tắt của "JavaScript Object Notation" (Ghi chú về Đối tượng JavaScript). Đây là một định dạng truyền tải dữ liệu phổ biến trong lập trình và giao tiếp giữa các máy chủ và trình duyệt web, cũng như giữa các hệ thống khác nhau.
 - JSON được thiết kế để dễ đọc và dễ viết cho con người, cũng như dễ dàng để phân tích và tạo ra cho máy tính. Nó sử dụng một cú pháp nhẹ dựa trên cặp key - value, tương tự như các đối tượng và mảng trong JavaScript. Mỗi đối tượng JSON bao gồm một tập hợp các cặp "key" và "value", trong khi mỗi mảng JSON là một tập hợp các giá trị.
@@ -2220,6 +2227,53 @@ int *A = (int *)malloc(18446744073709551615);
   }
 }
 ```
-- Trong đó:
-    - 
+<a name="cau-truc-chuoi-json"></a>
+
+## **II. Cấu trúc chuỗi JSON**
+
+- Cấu trúc của một chuỗi JSON rất đơn giản và linh hoạt. Một chuỗi JSON có thể là một đối tượng (object), một mảng (array), hoặc một giá trị dữ liệu cơ bản (string, number, boolean, hoặc null).
+
+    1. String
+    Các chuỗi trong JSON phải được viết trong dấu ngoặc kép. Ví dụ:
+
+    `{ "firstName":"John", "lastName":"Nguyen" }`
+
+    2. Number
+    Các số trong JSON phải là kiểu integer hoặc double - tương tự định dạng dấu phảy động trong JavaScript. Ví dụ:
+
+    `{ "age":19, "mark":100 }`
+
+    3. Object
+    Giá trị trong JSON có thể là đối tượng, bao gồm một tập các cặp key/value. Ví dụ:
+
+    ```c
+        {
+        "employee":
+            { 
+            "name":"Khoa", 
+            "age":19, 
+            "city":"Da Nang" 
+            }
+        }
+    ```
+
+    4. Array
+    Giá trị trong JSON có thể là mảng - một chuỗi các giá trị được sắp xếp. Ví dụ:
+
+    ```c
+        {
+        "employees":[ "Khoa", "Van", "Hang" ]
+        }
+    ```
+
+    5. Boolean
+    Giá trị trong JSON có thể là true/false. Ví dụ:
+
+    `{ "sale":false }`
+
+    6. null
+    Giá trị trong JSON có thể là giá trị rỗng. Ví dụ:
+
+    `{ "middlename":null }`
+
 ---
