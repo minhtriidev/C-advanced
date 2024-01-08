@@ -2212,36 +2212,112 @@ int *A = (int *)malloc(18446744073709551615);
 
 - JSON là viết tắt của "JavaScript Object Notation" (Ghi chú về Đối tượng JavaScript). Đây là một định dạng truyền tải dữ liệu phổ biến trong lập trình và giao tiếp giữa các máy chủ và trình duyệt web, cũng như giữa các hệ thống khác nhau.
 - JSON được thiết kế để dễ đọc và dễ viết cho con người, cũng như dễ dàng để phân tích và tạo ra cho máy tính. Nó sử dụng một cú pháp nhẹ dựa trên cặp key - value, tương tự như các đối tượng và mảng trong JavaScript. Mỗi đối tượng JSON bao gồm một tập hợp các cặp "key" và "value", trong khi mỗi mảng JSON là một tập hợp các giá trị.
-
-**vd:**
+- Bản chất JSON là string
+**vd1:**
 ```c
-{
+char *json = "
+{ 
   "name": "John Doe",
   "age": 30,
+  "city": "New York",
   "isStudent": false,
-  "courses": ["Math", "English", "History"],
-  "address": {
-    "street": "123 Main St",
-    "city": "Anytown",
-    "state": "CA"
-  }
+  "grades": [85, 90, 78]
 }
+
+"
 ```
+
+- JSON được sử dụng khi có các dữ liệu phức tạp chứa nhiều objects mà mỗi object lại có số lượng các cặp key-valuee khác nhau.
+```c
+[
+  {
+    "name": "John Doe",
+    "age": 30,
+    "city": "New York",
+  },
+  {
+    "name": "Jane Smith",
+    "age": 25,
+    "city": "Los Angeles",
+    "contact": {
+      "email": "jane.smith@example.com",
+      "phone": "555-1234"
+    }
+  },
+  {
+    "name": "Bob Johnson",
+    "age": 35,
+    "city": "Chicago"
+  }
+]
+```
+
 <a name="cau-truc-chuoi-json"></a>
 
 ## **II. Cấu trúc chuỗi JSON**
 
 - Cấu trúc của một chuỗi JSON rất đơn giản và linh hoạt. Một chuỗi JSON có thể là một đối tượng (object), một mảng (array), hoặc một giá trị dữ liệu cơ bản (string, number, boolean, hoặc null).
 
+- Trong đó: `key` bắt buộc là string và `value` có thể là một trong 6 kiểu dưới đây:
+
     1. String
     Các chuỗi trong JSON phải được viết trong dấu ngoặc kép. Ví dụ:
 
     `{ "firstName":"John", "lastName":"Nguyen" }`
 
+    Hàm xử lý phân tích string:
+
+    ```c
+    JsonValue *parse_string(const char **json) {
+        skip_whitespace(json);
+
+        if (**json == '\"') {
+            (*json)++;
+            const char *start = *json;
+            while (**json != '\"' && **json != '\0') {
+                (*json)++;
+            }
+            if (**json == '\"') {
+                size_t length = *json - start; // 3
+                char *str = (char *) malloc((length + 1) * sizeof(char));
+                strncpy(str, start, length);
+                str[length] = '\0';
+
+
+                JsonValue *value = (JsonValue *) malloc(sizeof(JsonValue));
+                value->type = JSON_STRING;
+                value->value.string = str;
+                (*json)++;
+                return value;
+            }
+        }
+        return NULL;
+    }
+    ```
+
     2. Number
     Các số trong JSON phải là kiểu integer hoặc double - tương tự định dạng dấu phảy động trong JavaScript. Ví dụ:
 
     `{ "age":19, "mark":100 }`
+
+    Hàm xử lý phân tích number:
+
+    ```c
+    JsonValue *parse_number(const char **json) {
+    skip_whitespace(json);
+    char *end;
+
+    double num = strtod(*json, &end);
+    if (end != *json) {
+        JsonValue *value = (JsonValue *) malloc(sizeof(JsonValue));
+        value->type = JSON_NUMBER;
+        value->value.number = num;
+        *json = end;
+        return value;
+    }
+    return NULL;
+    }
+    ```
 
     3. Object
     Giá trị trong JSON có thể là đối tượng, bao gồm một tập các cặp key/value. Ví dụ:
@@ -2257,6 +2333,64 @@ int *A = (int *)malloc(18446744073709551615);
         }
     ```
 
+    Hàm xử lý phân tích object:
+    ```c
+    JsonValue *parse_object(const char **json) {
+    skip_whitespace(json);
+    if (**json == '{') {
+        (*json)++;
+        skip_whitespace(json);
+
+        JsonValue *object_value = (JsonValue *)malloc(sizeof(JsonValue));
+        object_value->type = JSON_OBJECT;
+        object_value->value.object.count = 0;
+        object_value->value.object.keys = NULL;
+        object_value->value.object.values = NULL;
+
+
+
+        while (**json != '}' && **json != '\0') {
+            JsonValue *key = parse_string(json);
+            if (key) {
+                skip_whitespace(json);
+                if (**json == ':') {
+                    (*json)++;
+                    JsonValue *value = parse_json(json);
+                    if (value) {
+                        object_value->value.object.count++;
+                        object_value->value.object.keys = (char **)realloc(object_value->value.object.keys, object_value->value.object.count * sizeof(char *));
+                        object_value->value.object.keys[object_value->value.object.count - 1] = key->value.string;
+
+                        object_value->value.object.values = (JsonValue *)realloc(object_value->value.object.values, object_value->value.object.count * sizeof(JsonValue));
+                        object_value->value.object.values[object_value->value.object.count - 1] = *value;
+                        free(value);
+                    } else {
+                        free_json_value(key);
+                        break;
+                    }
+                } else {
+                    free_json_value(key);
+                    break;
+                }
+            } else {
+                break;
+            }
+            skip_whitespace(json);
+            if (**json == ',') {
+                (*json)++;
+            }
+        }
+        if (**json == '}') {
+            (*json)++;
+            return object_value;
+        } else {
+            free_json_value(object_value);
+            return NULL;
+        }
+    }
+    return NULL;
+    }
+    ```
     4. Array
     Giá trị trong JSON có thể là mảng - một chuỗi các giá trị được sắp xếp. Ví dụ:
 
@@ -2266,14 +2400,96 @@ int *A = (int *)malloc(18446744073709551615);
         }
     ```
 
+    Hàm xử lý phân tích array:
+    ```c
+    JsonValue *parse_array(const char **json) {
+    skip_whitespace(json);
+    if (**json == '[') {
+        (*json)++;
+        skip_whitespace(json);
+
+        JsonValue *array_value = (JsonValue *)malloc(sizeof(JsonValue));
+        array_value->type = JSON_ARRAY;
+        array_value->value.array.count = 0;
+        array_value->value.array.values = NULL;
+
+        /*
+        double arr[2] = {};
+        arr[0] = 30;
+        arr[1] = 70;
+        */
+
+        while (**json != ']' && **json != '\0') {
+            JsonValue *element = parse_json(json); // 70
+            if (element) {
+                array_value->value.array.count++;
+                array_value->value.array.values = (JsonValue *)realloc(array_value->value.array.values, array_value->value.array.count * sizeof(JsonValue));
+                array_value->value.array.values[array_value->value.array.count - 1] = *element;
+                free(element);
+            } else {
+                break;
+            }
+            skip_whitespace(json);
+            if (**json == ',') {
+                (*json)++;
+            }
+        }
+        if (**json == ']') {
+            (*json)++;
+            return array_value;
+        } else {
+            free_json_value(array_value);
+            return NULL;
+        }
+    }
+    return NULL;
+    }
+    ```
+
     5. Boolean
     Giá trị trong JSON có thể là true/false. Ví dụ:
 
     `{ "sale":false }`
 
+    Hàm xử lý phân tích boolean:
+    ```c
+    JsonValue *parse_boolean(const char **json) {
+    skip_whitespace(json);
+    JsonValue *value = (JsonValue *) malloc(sizeof(JsonValue));
+    if (strncmp(*json, "true", 4) == 0) {
+        value->type = JSON_BOOLEAN;
+        value->value.boolean = true;
+        *json += 4;
+    } else if (strncmp(*json, "false", 5) == 0) {
+        value->type = JSON_BOOLEAN;
+        value->value.boolean = false;
+        *json += 5;
+    } else {
+        free(value);
+        return NULL;
+    }
+    return value;
+    }
+    ```
+
     6. null
     Giá trị trong JSON có thể là giá trị rỗng. Ví dụ:
 
     `{ "middlename":null }`
+
+    Hàm xử lý null:
+
+    ```c
+    JsonValue *parse_null(const char **json) {
+    skip_whitespace(json);
+    if (strncmp(*json, "null", 4) == 0) {
+        JsonValue *value = (JsonValue *) malloc(sizeof(JsonValue));
+        value->type = JSON_NULL;
+        *json += 4;
+        return value;
+    }
+    return NULL;
+    }
+    ```
 
 ---
