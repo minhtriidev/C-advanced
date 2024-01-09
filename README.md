@@ -86,6 +86,17 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 - [**II. Cấu trúc chuỗi JSON**](#cau-truc-chuoi-json)
 
+
+[**LESSON 10: LINKED LIST**](#Lesson10)
+
+- [**I. Bài toán đặt ra**](#bai-toan-dat-ra)
+
+- [**II. Khái niệm**](#khai-niem-linked-list)
+
+- [**III. Cơ chế hoạt động**](#co-che-hoat-dong)
+
+[**LESSON 11: STACK - QUEUE**](#Lesson11)
+
 ---
 
 <a name="Lesson1"></a>
@@ -2227,7 +2238,7 @@ char *json = "
 "
 ```
 
-- JSON được sử dụng khi có các dữ liệu phức tạp chứa nhiều objects mà mỗi object lại có số lượng các cặp key-valuee khác nhau.
+- JSON được sử dụng khi có các dữ liệu phức tạp chứa nhiều objects mà mỗi object lại có số lượng các cặp key-value khác nhau.
 ```c
 [
   {
@@ -2346,8 +2357,6 @@ char *json = "
         object_value->value.object.count = 0;
         object_value->value.object.keys = NULL;
         object_value->value.object.values = NULL;
-
-
 
         while (**json != '}' && **json != '\0') {
             JsonValue *key = parse_string(json);
@@ -2491,5 +2500,65 @@ char *json = "
     return NULL;
     }
     ```
+
+---
+<a name="Lesson10"></a>
+
+# [**LESSON 10: LINKED LIST**](#Lesson10)
+
+<a name="bai-toan-dat-ra"></a>
+
+## **I. Bài toán đặt ra**
+
+- Chúng ta có một dãy số gồm n phần tử. Hãy tìm cách chèn vào vị trí i một giá trị mà không làm thay đổi vị trí tương đối của các phần tử trong dãy.
+
+**Ví dụ:** Ta có dãy [1, 4, 6, 2, 3, 5]. Sau khi chèn phần tử 7 vào vị trí thứ 3 ta sẽ được dãy [1, 4, 7, 6, 2, 3, 5].
+
+- Thông thường, khi ta lưu trữ một dãy dưới dạng mảng mà chèn trực tiếp phần tử vào sẽ làm mất giá trị gốc ở vị trí đó. Do đó, ta nghĩ đến việc sẽ phải tạo ra một ô trống ở vị trí cần chèn. Từ đó, ta sẽ có ý tưởng sau: Dồn các phần tử bắt đầu từ vị trí cần chèn đến cuối cùng về ô sau nó, khi đó, vị trí cần chèn sẽ trống.
+
+<img src="https://i.imgur.com/eQ40TYW.png">
+
+- Nhận xét: Ta thấy trong dãy trên, khi chèn phần tử mới vào vị trí k, chỉ có quan hệ trước sau giữa phần tử ak-1, ak và phần tử được chèn thêm là có sự thay đổi. Do đó, ta sẽ nghĩ cách làm sao chỉ thay đổi quan hệ của 3 phần tử này mà không làm ảnh hưởng đến các phần tử khác.
+
+- Cải tiến: Bây giờ, hãy cùng nhìn vào một ví dụ trong thực tế. Chúng ta có một hàng ngang gồm n người nắm tay nhau. Bây giờ, chúng ta muốn có thêm một người C vào vị trí giữa hai người A và B. Vậy thì chúng ta sẽ làm thế nào? Có phải là chúng ta sẽ bảo 2 người A và B không nắm tay nhau nữa, tay khi nãy nắm lấy người B của người A thì nắm lấy tay người C, tay khi nãy nắm lấy người A của người B thì nắm lấy tay người C. Lúc này, người C sẽ trở thành một phần của hàng.
+
+<a name="khai-niem-linked-list"></a>
+
+## **II. Khái niệm**
+
+- Linked list là một cấu trúc dữ liệu trong lập trình máy tính, được sử dụng để tổ chức và lưu trữ dữ liệu. Một linked list bao gồm một chuỗi các "nút" (nodes), mỗi nút chứa một giá trị dữ liệu và một con trỏ (pointer) đến nút tiếp theo trong chuỗi.
+
+- Một Linked List sẽ có các phương thức cơ bản sau:
+
+    - Chèn một phần tử vào vị trí xác định
+    - Xoá một phần tử ở vị trí xác định
+
+Ngoài ra có thể có các hàm thực hiện chức năng như sau:
+
+```c
+node *createNode(int value); 
+void push_back(node** array, int value); 
+void push_front(node **array, int value); // them 1 node vao phia truoc
+void pop_back(node **array); 
+void pop_front(node **array); // xoa node dau tien
+int front(node **array); // lay gia tri cua node dau tien
+int back(node **array); // lay gia tri cua node cuoi cung
+void insert(node **array, int value, int pos); // them 1 node vao mot vi tri bat ky
+void deletee(node **array, int pos); // xoa 1 node tai mot vi tri bat ky
+int size(node **array); // lay kich thuoc cua list
+int get(node **array, int pos); 
+bool empty(node **array); // kiem tra list co rong hay khong
+```
+
+<a name="co-che-hoat-dong"></a>
+
+## **III. Cơ chế hoạt động**
+
+
+
+---
+<a name="Lesson11"></a>
+
+# [**LESSON 11: STACK - QUEUE**](#Lesson11)
 
 ---
