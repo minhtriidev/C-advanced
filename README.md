@@ -2554,11 +2554,44 @@ bool empty(node **array); // kiem tra list co rong hay khong
 
 ## **III. Cơ chế hoạt động**
 
+- Khởi tạo node:
+
+<img src="https://i.imgur.com/SnFHNFm.png">
+
+```c
+typedef struct node
+{
+    int value;
+    struct node* next;
+}node;
+
+
+node* createNode(int value)
+{
+    node* ptr = (node*)malloc(sizeof(node));
+    ptr->value = value;
+    ptr->next = NULL;
+    return ptr;
+}
+
+int main(){
+    Node* node1 = createNode(2);
+    Node* node2 = createNode(4);
+    Node* node3 = createNode(7);
+
+    return 0;
+}
+```
 
 
 ---
 <a name="Lesson11"></a>
 
 # [**LESSON 11: STACK - QUEUE**](#Lesson11)
+
+---
+<a name="Lesson12"></a>
+
+# [**LESSON 12: BINARY SERACH - FILE OPERATIONS - CODE STANDARDS**](#Lesson12)
 
 ---
