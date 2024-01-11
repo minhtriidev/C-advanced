@@ -97,6 +97,7 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 [**LESSON 11: STACK - QUEUE**](#Lesson11)
 
+[**LESSON 12: BINARY SERACH - FILE OPERATIONS - CODE STANDARDS**](#Lesson12)
 ---
 
 <a name="Lesson1"></a>
@@ -2554,9 +2555,17 @@ bool empty(node **array); // kiem tra list co rong hay khong
 
 ## **III. Cơ chế hoạt động**
 
-- Khởi tạo node:
+### Khởi tạo node: 
 
 <img src="https://i.imgur.com/SnFHNFm.png">
+
+- Khởi tạo struct định nghĩa kiểu dữ liệu node: mỗi nút chứa một giá trị dữ liệu (value) và một con trỏ (next) đến nút tiếp theo trong chuỗi.
+- Hàm createNode: 
+    - Truyền vào giá trị cho node (value)
+    - Cấp phát bộ nhớ động cho node (ptr)
+    - Gán giá trị cho node là giá trị truyền vào
+    - Khởi tạo địa chỉ ban đầu cho node tiếp theo là NULL
+    - Trả về địa chỉ của node (ptr)
 
 ```c
 typedef struct node
@@ -2582,8 +2591,107 @@ int main(){
     return 0;
 }
 ```
+### Lấy giá trị của node tại vị trí bất kỳ
 
+- Hàm get: 
+    - array ở đây là con trỏ đến nút đầu tiên của danh sách liên kết.
+    - array->next != NULL: Điều kiện này kiểm tra xem nút hiện tại có nút tiếp theo không. Nếu có nút tiếp theo, thì vòng lặp tiếp tục chạy.
+    - pos != i: Điều kiện này kiểm tra xem đã đạt đến vị trí cần lấy giá trị (pos) chưa. Nếu pos và i bằng nhau, nghĩa là chúng ta đã đến vị trí cần và vòng lặp sẽ dừng lại.
+    - Trong mỗi lần lặp: 
+        - array = array->next: Chuyển con trỏ array đến nút tiếp theo trong danh sách.
+        - i++: Tăng biến i lên mỗi lần lặp để theo dõi vị trí hiện tại của con trỏ.
 
+Vòng lặp này sẽ tiếp tục cho đến khi array->next là NULL (điều này xảy ra khi đến cuối danh sách) hoặc khi pos == i (đã đạt đến vị trí cần). Sau khi vòng lặp kết thúc, con trỏ array sẽ trỏ đến nút có vị trí pos trong danh sách liên kết.
+
+```c
+int get(node* array, int pos)
+{
+    int i = 0;
+ 
+    while (array->next != NULL && pos != i)
+    {
+        array = array->next;
+        i++;
+    }
+
+    if (pos != i)
+    {
+        printf("Error: List has less element\n");
+        return 0;
+    }
+
+    int value = array->value;
+    return value;
+}
+
+```
+### Thêm 1 node vào cuối list
+
+- Tạo một node mới (temp)
+- Kiểm tra xem list có rỗng không
+    - Nếu rỗng thì node mới tạo sẽ là node đầu tiên
+    - Nếu không rỗng thì khởi tạo một node trung gian (p) để kiểm tra xem node hiện tại có phải là node cuối cùng không
+- Khi kết thúc vòng lặp, nghĩa là đã tới vị trí node cuối cùng trong list thì ta gán next của node cuối bằng địa chỉ của node vừa tạo
+
+```c
+void push_back(node** array, int value)
+{
+    node* temp;
+    temp = createNode(value); // khoi tao node
+
+    if (*array == NULL)   // if array doesn't have any node yet
+    {
+
+        *array = temp;
+    }
+    else                // if array has some node
+    {
+        node* p = *array;          // use p instead of array because we are using pointer, use array will change the structure of linkedlist
+        while (p->next != NULL) // which mean the current node is not the last node
+        {
+            p = p->next;    // check next node until it a last node
+
+        }
+
+        p->next = temp;     // change it next member point to address of new node have just create
+    }
+}
+```
+### Xóa 1 node cuối list
+
+- Khởi tạo node trung gian (p và temp)
+- Kiểm tra xem next của node hiện tại có phải là node kế cuối không (p->next->next != NULL)
+- Khi tới next của node hiện tại là node kế cuối thì gán cho next của nó là NULL (nghĩa là đã thay đổi next của node kế cuối từ địa chỉ của node cuối thành NULL nhằm loại bỏ phần tử cuối cùng khỏi list) 
+
+```c
+void pop_back(node** array)
+{
+    node* p;
+    p = *array;
+
+    while (p->next->next != NULL)     // free the last node in the list
+    {
+        p = p->next;
+    }
+    p->next = NULL;
+}
+```
+### Ngoài ra còn một số hàm khác được thể hiện trong folder code linked_list trên github
+```c
+node *createNode(int value); 
+void push_back(node** array, int value); 
+void push_front(node **array, int value); // them 1 node vao phia truoc
+void pop_back(node **array); 
+void pop_front(node **array); // xoa node dau tien
+int front(node **array); // lay gia tri cua node dau tien
+int back(node **array); // lay gia tri cua node cuoi cung
+void insert(node **array, int value, int pos); // them 1 node vao mot vi tri bat ky
+void deletee(node **array, int pos); // xoa 1 node tai mot vi tri bat ky
+int size(node **array); // lay kich thuoc cua list
+int get(node **array, int pos); 
+bool empty(node **array); // kiem tra list co rong hay khong
+
+```
 ---
 <a name="Lesson11"></a>
 
