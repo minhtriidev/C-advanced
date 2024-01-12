@@ -2698,8 +2698,11 @@ bool empty(node **array); // kiem tra list co rong hay khong
 # [**LESSON 11: STACK - QUEUE**](#Lesson11)
 
 ---
+
 <a name="Lesson12"></a>
 
 # [**LESSON 12: BINARY SERACH - FILE OPERATIONS - CODE STANDARDS**](#Lesson12)
+
+
 
 ---
