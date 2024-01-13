@@ -74,7 +74,7 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 
 - [**II. DATA SEGMENT**](#data-segment)
 
-- [**III. STACK**](#stack)
+- [**III. STACK**](#stack-memory)
 
 - [**IV. HEAP**](#heap)
 
@@ -2027,7 +2027,7 @@ int main(int argc, char const *argv[])
 - Quyền truy cập: Data Segment thường có quyền đọc và ghi, nghĩa là dữ liệu có thể được đọc và sửa đổi trong quá trình thực thi của chương trình.
 - Kích thước thay đổi: Kích thước của Data Segment có thể thay đổi trong quá trình thực thi của chương trình khi các biến được khởi tạo hoặc giải phóng.
 
-<a name="stack"></a>
+<a name="stack-memory"></a>
 
 ## **III. STACK**
 
