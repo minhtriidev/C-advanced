@@ -2710,11 +2710,12 @@ bool empty(node **array); // kiem tra list co rong hay khong
 
 <img src="https://i.imgur.com/bhhA8Lk.png">
 
-**vd:**
-```c
-#include <stdio.h>
-#include <stdlib.h>
+### Khởi tạo stack
+- items: mảng chứa các phần tử 
+- size: số phần tử của stack
+- top: vị trí phần tử cuối của stack
 
+```c
 typedef struct Stack {
     int* items;
     int size;
@@ -2726,15 +2727,37 @@ void initialize( Stack *stack, int size) {
     stack->size = size;
     stack->top = -1;
 }
+```
 
-int is_empty( Stack stack) {
+### Hàm kiểm tra stack có rỗng không
+- Hàm này kiểm tra điều kiện `stack.top == -1`
+    - nếu đúng thì trả về 1 (true) nghĩa là stack đang rỗng
+    - sai thì trả về 0 (false) thì stack đang chứa phần tử
+
+```c
+bool is_empty( Stack stack) {
     return stack.top == -1;
 }
+```
 
-int is_full( Stack stack) {
+### Hàm kiểm tra stack có đầy chưa
+- Hàm này kiểm tra điều kiện `stack.top == stack.size - 1` (vì top bắt đầu là 0 nên phải so sánh với size - 1)
+    - nếu đúng thì trả về 1 (true), nghĩa là stack đã đầy 
+    - sai thì trả về 0 (false), nghĩa là stack chưa đầy
+```c
+bool is_full( Stack stack) {
     return stack.top == stack.size - 1;
 }
 
+```
+
+### Hàm push dùng để thêm phần tử vào stack
+- Kiểm tra xem stack đã đầy chưa
+    - Nếu đầy rồi thì in ra thông báo `Stack overflow`
+    - Nếu chưa thì tăng top lên 1 đơn vị và gán value vào 
+- Ví dụ nếu stack đang có 1 phần tử thì top = 0, nếu stack chưa đầy thì top = 1, và thực hiện gán value vào vị trí 1
+
+```c
 void push( Stack *stack, int value) {
     if (!is_full(*stack)) {
         stack->items[++stack->top] = value;
@@ -2742,7 +2765,14 @@ void push( Stack *stack, int value) {
         printf("Stack overflow\n");
     }
 }
+```
 
+### Hàm pop dùng để xóa phần tử khỏi stack
+- Kiểm tra xem stack có đang rỗng không
+    - Nếu stack đang rỗng thì in ra thông báo `Stack underflow`
+    - Nếu không rỗng thì trả về giá trị của phần tử trên cùng rồi giảm top đi 1 đơn vị
+- Ví dụ nếu stack đang có 3 phần tử thì top = 2, hàm sẽ trả về giá trị của phần tử 2 và top = 1
+```c
 int pop( Stack *stack) {
     if (!is_empty(*stack)) {
         return stack->items[stack->top--];
@@ -2752,6 +2782,13 @@ int pop( Stack *stack) {
     }
 }
 
+```
+### Hàm top dùng để lấy giá trị trên cùng của stack
+- Kiểm tra xem stack có đang rỗng không
+    - Nếu stack đang rỗng thì in ra thông báo `Stack is empty`
+    - Nếu không rỗng thì trả về giá trị của phần tử trên cùng
+- Ví dụ nếu stack đang có 3 phần tử thì top = 2, hàm sẽ trả về giá trị của phần tử 2
+```c
 int top( Stack stack) {
     if (!is_empty(stack)) {
         return stack.items[stack.top];
@@ -2760,7 +2797,10 @@ int top( Stack stack) {
         return -1;
     }
 }
+```
 
+### Hàm main
+```c
 int main() {
     Stack stack1;
     initialize(&stack1, 5);
@@ -2782,7 +2822,16 @@ int main() {
 
     return 0;
 }
+```
 
+
+Kết quả thu được:
+```c
+Stack overflow
+Top element: 50
+Pop element: 50
+Pop element: 40
+Top element: 30
 ```
 
 ## [**II. QUEUE**](#queue)
@@ -2799,7 +2848,7 @@ int main() {
 ```c
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <tsdbool.h>
 
 typedef struct Queue {
     int* items;
@@ -2815,11 +2864,11 @@ void initialize(Queue *queue, int size)
     queue->size = size;
 }
 
-int is_empty(Queue queue) {
+bool is_empty(Queue queue) {
     return queue.front == -1;
 }
 
-int is_full(Queue queue) {
+bool is_full(Queue queue) {
     return (queue.rear + 1) % queue.size == queue.front;
 }
 
