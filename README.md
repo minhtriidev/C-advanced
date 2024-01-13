@@ -2700,6 +2700,8 @@ bool empty(node **array); // kiem tra list co rong hay khong
 
 # [**LESSON 11: STACK - QUEUE**](#Lesson11)
 
+<a name="stack"></a>
+
 ## [**I. STACK**](#stack)
 
 - Stack (ngăn xếp) là một cấu trúc dữ liệu tuân theo nguyên tắc "Last In, First Out" (LIFO), nghĩa là phần tử cuối cùng được thêm vào stack sẽ là phần tử đầu tiên được lấy ra. 
@@ -2833,6 +2835,7 @@ Pop element: 50
 Pop element: 40
 Top element: 30
 ```
+<a name="queue"></a>
 
 ## [**II. QUEUE**](#queue)
 
