@@ -2844,12 +2844,12 @@ Top element: 30
 
 <img src="https://i.imgur.com/Yo4bsKn.png">
 
-**vd:**
+### Khởi tạo Queue
+- items là mảng chứa queue
+- size là kích thước của queue
+- front là vị trí của phần tử đầu tiên của queue
+- rear là vị trí phần tử cuối của queue
 ```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <tsdbool.h>
-
 typedef struct Queue {
     int* items;
     int size;
@@ -2863,15 +2863,38 @@ void initialize(Queue *queue, int size)
     queue->rear = -1;
     queue->size = size;
 }
-
+```
+### Hàm kiểm tra queue có rỗng không
+- Hàm này kiểm tra điều kiện `queue.front == -1`
+    - nếu đúng thì trả về 1 (true), nghĩa là stack đang rỗng
+    - sai thì trả về 0 (false), nghĩa là stack đang có phần tử
+```c
 bool is_empty(Queue queue) {
     return queue.front == -1;
 }
 
+```
+
+### Hàm kiểm tra queue có đầy chưa
+- Hàm này kiểm tra điều kiện `(queue.rear + 1) % queue.size == queue.front`
+    - nếu đúng thì trả về 1 (true), nghĩa là queue đã đầy 
+    - sai thì trả về 0 (false), nghĩa là queue chưa đầy
+- Ví dụ: size = 5, front = 2 và rear = 1, ta có (queue.rear + 1) % queue.size = queue.front = 2, nghĩa là queue đã đầy
+
+<img src = "https://i.imgur.com/F9oMP3r.png">
+
+```c
 bool is_full(Queue queue) {
     return (queue.rear + 1) % queue.size == queue.front;
 }
-
+```
+### Hàm enqueue thêm phần tử vào queue
+- Kiểm tra queue đã đầy chưa
+    - Nếu đầy rồi thì in ra thông báo `Queue overflow`
+    - Nếu chưa đầy thì kiểm tra tiếp là queue có đang rỗng không
+        - Nếu rỗng thì gán cho front = rear = 0 và gán value vào vị trí 0
+        - Nếu không rỗng thì gán `queue->rear = (queue->rear + 1) % queue->size`
+```c
 void enqueue(Queue *queue, int value) {
     if (!is_full(*queue)) {
         if (is_empty(*queue)) {
@@ -2884,7 +2907,17 @@ void enqueue(Queue *queue, int value) {
         printf("Queue overflow\n");
     }
 }
+```
+### Hàm dequeue thêm phần tử vào queue
+- Kiểm tra queue có rỗng không
+    - Nếu rỗng thì in ra thông báo `Queue underflow` và trả về giá trị -1
+    - Nếu không rỗng thì 
+        - Lưu giá trị sắp cho ra khỏi queue `dequeued_value = queue->items[queue->front]`
+        - Kiểm tra xem queue đang chỉ có 1 phần tử `queue->front == queue->rear`
+            - Nếu đúng thì đặt lại queue rỗng `queue->front = queue->rear = -1` và trả về giá trị `dequeued_value`
+            - Nếu sai thì dịch front sang phải 1 đơn vị `queue->front = (queue->front + 1) % queue->size` và trả về giá trị `dequeued_value`
 
+```c
 int dequeue(Queue *queue) {
     if (!is_empty(*queue)) {
         int dequeued_value = queue->items[queue->front];
@@ -2899,7 +2932,13 @@ int dequeue(Queue *queue) {
         return -1;
     }
 }
+```
+### Hàm xem giá trị phần tử đầu tiên của queue
+- Kiểm tra queue có đang rỗng không
+    - Nếu rỗng thì in ra thông báo `Queue is empty`
+    - Nếu không rỗng thì trả về giá trị của phần tử đầu tiên của queue
 
+```c
 int front(Queue queue) {
     if (!is_empty(queue)) {
         return queue.items[queue.front];
@@ -2908,7 +2947,9 @@ int front(Queue queue) {
         return -1;
     }
 }
-
+```
+### Hàm main
+```c
 int main() {
     Queue queue;
     initialize(&queue, 3);
@@ -2932,6 +2973,15 @@ int main() {
     return 0;
 }
 
+```
+Kết quả thu được:
+```c
+Front element: 10
+Dequeue element: 10
+Dequeue element: 20
+Front element: 30
+Dequeue element: 30
+Front element: 40
 ```
 ---
 
