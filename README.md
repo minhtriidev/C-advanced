@@ -101,6 +101,11 @@ Lịch học: thứ 3, 5, 7; 8:9 pm
 - [**II. QUEUE**](#queue)
 
 [**LESSON 12: BINARY SERACH - FILE OPERATIONS - CODE STANDARDS**](#Lesson12)
+
+- [**I. BINARY SERACH**](#binary-search)
+- [**II. FILE OPERATIONS**](#file-operation)
+- [**III. CODE STANDARDS**](#code-standards)
+
 ---
 
 <a name="Lesson1"></a>
@@ -2992,6 +2997,104 @@ Front element: 40
 
 # [**LESSON 12: BINARY SERACH - FILE OPERATIONS - CODE STANDARDS**](#Lesson12)
 
+<a name="binary-search"></a>
 
+## [**I. BINARY SERACH**](#binary-search)
+
+- Ta có một mảng gồm số phần tử và giá trị như hình dưới. 
+
+- Trong trường hợp muốn tìm đến phần tử chứa giá trị 25 thì thông thường ta sẽ dùng vòng lặp for để duyệt qua tất cả phần tử của mảng. Nhưng với số lượng phần tử của mảng lớn thì việc dùng for như vậy sẽ gây mất thời gian và tài nguyên của hệ thống. Do đó, ta có thuật toán tìm kiếm nhị phân (Binary search) tối ưu cho việc tìm kiếm này.
+
+<img src = "https://i.imgur.com/sezGCcJ.png">
+
+### Thuật toán sắp xếp (bubbleSort)
+- vì đầu vào của Binary search là dãy số đã được sắp xếp, nên ta sẽ áp dụng bubbleSort trước khi đưa vào Binary search
+- Kết quả của thuật toán là một dãy số đã được sắp xếp tăng dần, bắt đầu từ phần tử nhỏ nhất và kết thúc ở phần tử lớn nhất. Điều này được đảm bảo bởi việc lặp qua dãy số và so sánh, đưa phần tử lớn nhất về đúng vị trí sau mỗi vòng lặp bên ngoài.
+
+```c
+void swap(int* a, int* b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void bubbleSort(int arr[], int n)
+{
+    int i, j;
+    for (i = 0; i < n - 1; i++)
+    {
+       
+        for (j = 0; j < n - i - 1; j++)
+        {
+           
+            if (arr[j] > arr[j + 1])
+                swap(&arr[j], &arr[j + 1]);
+        }
+    }
+}
+```
+### Tìm kiếm nhị phân (Binary search)
+
+- Kiểm tra xem phần tử ở vị trí giữa có bằng x không
+
+<img src = "https://i.imgur.com/NFKC7iJ.png">
+
+- Nếu x lớn hơn phần tử giữa, tìm kiếm trong nửa thứ hai của mảng. Lúc đó: `l = mid + 1`
+
+<img src = "https://i.imgur.com/LaLsFxh.png">
+
+- Nếu x nhỏ hơn phần tử giữa, tìm kiếm trong nửa đầu tiên của mảng. Lúc đó: `r = mid - 1`
+
+- Cho đến khi tìm thấy phần tử `arr[mid] == x` hoặc không tồn tại phần tử trong mảng `r >= l` thì kết thúc hàm
+
+```c
+int binarySearch(int* arr, int l, int r, int x) {
+    if (r >= l) {
+        int mid = l + (r - l) / 2;
+  
+        // Kiểm tra xem phần tử ở vị trí giữa có bằng x không.
+        if (arr[mid] == x)  
+            return mid;
+
+        // Nếu x nhỏ hơn phần tử giữa, tìm kiếm trong nửa đầu tiên của mảng.
+        if (arr[mid] > x) 
+            return binarySearch(arr, l, mid - 1, x);
+
+        // Nếu x lớn hơn phần tử giữa, tìm kiếm trong nửa thứ hai của mảng.
+        return binarySearch(arr, mid + 1, r, x);
+    }
+
+    // Trường hợp kết thúc đệ quy - phần tử không tồn tại trong mảng.
+    return -1;
+}
+
+```
+<a name="file-operation"></a>
+
+## [**II. FILE OPERATIONS**](#file-operation)
+
+- Ngôn ngữ lập trình C cung cấp một số thư viện và hàm tiêu biểu để thực hiện các thao tác với file. 
+- File CSV (Comma-Separated Values) là một loại file văn bản được sử dụng để lưu trữ và truyền tải dữ liệu có cấu trúc dưới dạng bảng, trong đó các dữ liệu của các cột được phân tách bằng dấu phẩy (,) hoặc một ký tự ngăn cách khác.
+- Giả sử bạn có một bảng thông tin về nhân viên với các cột sau:
+    - Họ và tên
+    - Tuổi
+    - Địa chỉ
+    - Số điện thoại
+
+<div align="center">
+    <img src="https://i.imgur.com/nazkKbR.png" alt="Your Image">
+</div>
+
+- Để mở một file, bạn có thể sử dụng hàm fopen(). Hàm này trả về một con trỏ FILE, và cần được kiểm tra để đảm bảo file đã mở thành công.
+
+`FILE *file = fopen(const char *file_name, const char *access_mode);`
+
+
+<a name="code-standards"></a>
+
+## [**III. CODE STANDARDS**](#code-standards)
+
+https://hala.edu.vn/c-co-ban/cac_quy_tac_ve_dat_ten_theo_tieu_chuan_autosar_c_coding_guidelines/
 
 ---

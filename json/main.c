@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 
+
 typedef enum {
     JSON_NULL,
     JSON_BOOLEAN,
@@ -252,7 +253,7 @@ JsonValue *parse_json(const char **json) {
 /////////////
 
 void free_json_value(JsonValue *json_value) {
-    if (json_value == NULL) {
+    if (json_value ==  NULL) {
         return;
     }
 
@@ -420,3 +421,4 @@ int main(int argc, char const *argv[])
     
     return 0;
 }
+
